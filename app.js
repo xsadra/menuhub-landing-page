@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNewsletterForm();
   initModals();
   initSmartLinks();
+  initCopyEmail();
 });
 
 /* ==========================================================================
@@ -862,4 +863,51 @@ function initSmartLinks() {
     }
   });
 }
+
+/* ==========================================================================
+   11. COPY EMAIL QUICK-ACTION
+   ========================================================================== */
+function initCopyEmail() {
+  const copyBtn = document.getElementById('copyEmailBtn');
+  const copyLabel = document.getElementById('copyBtnLabel');
+  if (!copyBtn) return;
+
+  copyBtn.addEventListener('click', async () => {
+    const email = copyBtn.getAttribute('data-email') || 'info@menuhub.app';
+    let copied = false;
+
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(email);
+        copied = true;
+      } catch (err) {
+        copied = false;
+      }
+    }
+
+    if (!copied) {
+      const tempInput = document.createElement('input');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        copied = true;
+      } catch (err) {
+        copied = false;
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    copyBtn.classList.add('copied');
+    if (copyLabel) copyLabel.textContent = 'Copied to clipboard!';
+    showToast('📋 Copied info@menuhub.app to clipboard!');
+
+    setTimeout(() => {
+      copyBtn.classList.remove('copied');
+      if (copyLabel) copyLabel.textContent = 'Copy Email';
+    }, 2800);
+  });
+}
+
 
