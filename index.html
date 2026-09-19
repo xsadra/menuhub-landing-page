@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MenuVerse & SmartDine | Next-Gen Digital Dining & Restaurant Operating System</title>
+  <meta name="description" content="Production-grade digital dining and restaurant management platform engineered in Flutter Web. Real-time QR ordering, instant multi-lingual AI translation, 10-minute pre-arrival kitchen buffers, and wait-time dining gamification.">
+  
+  <!-- OpenGraph / Social Metadata -->
+  <meta property="og:title" content="MenuVerse & SmartDine | Next-Gen Digital Dining Platform">
+  <meta property="og:description" content="Cross-platform Flutter Web architecture bridging hungry patrons and high-volume dining venues with real-time QR dine-in orchestration.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://menuverse-platform.web.app">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- 
+  ==========================================================================
+  ASSET GENERATION PROMPTS FOR MIDJOURNEY / DALL-E / SVG GENERATORS
+  ==========================================================================
+  1. Hero Device Mockup (3D Render):
+     "Isometric high-end 3D render of a modern dark glass smartphone showing a vibrant digital restaurant menu with food photos, floating next to an ultra-thin tablet displaying a restaurant analytics dashboard with bar graphs and table reservation maps, dark futuristic slate studio background with soft warm amber edge lighting, photorealistic, 8k resolution, UI/UX portfolio asset --ar 16:9"
+
+  2. QR Table Dining Vector (SVG/Illustration):
+     "Minimalist modern flat vector illustration of an elegant restaurant table with a glowing digital QR code cube, a customer's hand scanning with a sleek smartphone, vibrant warm amber and emerald accents, dark theme background, SVG style, clean line art"
+
+  3. Wait-Time Gaming & Rewards Vector:
+     "Modern isometric vector art of a smartphone displaying a casual mini-game with floating golden stars, discount percentage badges (-15%), and burger tokens, futuristic gamification concept, sleek dark glassmorphism aesthetic"
+
+  4. Kitchen Order Orchestration (KDS) Vector:
+     "Vector illustration of a modern smart commercial kitchen, digital order screen showing countdown timers and table numbers, clean flat design with gradient lighting, tech-forward culinary industry"
+  ==========================================================================
+  -->
+</head>
+<body>
+
+  <!-- ==========================================================================
+       SECTION 1: TOP TICKER & STICKY NAVIGATION
+       ========================================================================== -->
+  <div class="top-ticker" aria-label="Announcement Bar">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="ticker-dot"></span> Engineered with Flutter Web (CanvasKit Engine)</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Real-Time Menu & Order WebSocket Synchronization</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Multi-Language Dynamic AI Auto-Translation Live across 500+ venues</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Pre-Arrival Kitchen Buffers: Served within 10 minutes of arrival</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Embedded Wait-Time Mini-Games with Live Discount Tokens</div>
+      <!-- Duplicate track for seamless marquee loop -->
+      <div class="ticker-item"><span class="ticker-dot"></span> Engineered with Flutter Web (CanvasKit Engine)</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Real-Time Menu & Order WebSocket Synchronization</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Multi-Language Dynamic AI Auto-Translation Live across 500+ venues</div>
+    </div>
+  </div>
+
+  <nav class="main-navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo" aria-label="MenuVerse Homepage">
+        <div class="logo-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+            <path d="M7 2v20"/>
+            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+          </svg>
+        </div>
+        <div class="brand-title">
+          MenuVerse
+          <span>SmartDine OS • Flutter Web</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#ecosystem" class="nav-link">Ecosystem</a></li>
+        <li><a href="#discovery" class="nav-link">Search Engine</a></li>
+        <li><a href="#gamification" class="nav-link">Gamification</a></li>
+        <li><a href="#screens" class="nav-link">18 Screens</a></li>
+        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="#architecture" class="nav-link">Tech Specs</a></li>
+      </ul>
+
+      <div class="nav-cta-group">
+        <a href="#discovery" class="btn btn-secondary btn-sm" id="navDemoBtn">Interactive Demo</a>
+        <a href="#pricing" class="btn btn-primary btn-sm">Get Started Free</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       SECTION 2: HERO SECTION (ABOVE-THE-FOLD IMPACT)
+       ========================================================================== -->
+  <header class="section hero-section" id="hero">
+    <div class="hero-glow-bg"></div>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="eyebrow-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Cross-Platform Flutter Web Architecture • Real-Time QR Dine-In Suite
+        </div>
+        <h1 class="hero-title">
+          The Complete Digital Dining &amp; Restaurant <span class="highlight">Management OS</span>.
+        </h1>
+        <p class="hero-desc">
+          Bridging hungry patrons and high-volume dining venues through real-time QR ordering, instant multi-lingual AI translation, granular ingredient filters, pre-arrival kitchen preparation, and integrated dining wait-time gamification.
+        </p>
+        <div class="hero-actions">
+          <a href="#discovery" class="btn btn-primary">
+            Explore Live Interactive Showcase
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#architecture" class="btn btn-secondary">
+            Inspect System Architecture &amp; Specs
+          </a>
+        </div>
+        
+        <div class="hero-stats-row">
+          <div class="stat-item">
+            <h4>500<span>+</span></h4>
+            <p>Active Venues</p>
+          </div>
+          <div class="stat-item">
+            <h4>&lt; 10<span>m</span></h4>
+            <p>Pre-Arrival Buffer</p>
+          </div>
+          <div class="stat-item">
+            <h4>99.98<span>%</span></h4>
+            <p>WebSocket Uptime</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Split Mockup Hero Visual -->
+      <div class="hero-mockup-wrapper">
+        <div class="device-cluster">
+          <!-- Tablet Mockup: Restaurant KDS Dashboard -->
+          <div class="device-tablet">
+            <div class="tablet-topbar">
+              <div class="topbar-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="tablet-dash-title">SmartDine Kitchen Display • Table Matrix #14</div>
+              <span class="badge badge-emerald">Live Socket: Connected</span>
+            </div>
+            <div class="tablet-grid">
+              <div class="dash-panel">
+                <div class="dash-panel-header">
+                  <span>ACTIVE KITCHEN TICKETS</span>
+                  <span class="badge badge-amber">4 In Prep</span>
+                </div>
+                <div class="order-row active">
+                  <div>
+                    <strong>Table #14</strong> • Wagyu Ribeye
+                    <div style="font-size:0.65rem; color: var(--accent-primary);">Med-Rare • Extra Truffle • No Gluten</div>
+                  </div>
+                  <span style="font-family:monospace; color:#10b981;">04:12</span>
+                </div>
+                <div class="order-row">
+                  <div>
+                    <strong>Table #08</strong> • Truffle Risotto
+                    <div style="font-size:0.65rem; color: var(--text-muted);">Vegetarian • Low Salt</div>
+                  </div>
+                  <span style="font-family:monospace; color:#fbbf24;">07:45</span>
+                </div>
+                <div class="order-row">
+                  <div>
+                    <strong>Takeout #109</strong> • Pre-Arrival
+                    <div style="font-size:0.65rem; color: #38bdf8;">Arrival in 8 min</div>
+                  </div>
+                  <span style="font-family:monospace; color:#38bdf8;">Ready in 3m</span>
+                </div>
+              </div>
+              
+              <div class="dash-panel">
+                <div class="dash-panel-header">
+                  <span>TABLE RESERVATION MATRIX</span>
+                  <span style="font-size:0.7rem; color:var(--text-muted);">Capacity 88%</span>
+                </div>
+                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; margin-top:8px;">
+                  <div style="background: rgba(16, 185, 129, 0.15); border:1px solid #10b981; padding:6px; text-align:center; border-radius:4px; font-size:0.7rem;">T-12 (Free)</div>
+                  <div style="background: rgba(239, 68, 68, 0.15); border:1px solid #ef4444; padding:6px; text-align:center; border-radius:4px; font-size:0.7rem;">T-14 (Dining)</div>
+                  <div style="background: rgba(245, 158, 11, 0.15); border:1px solid #f59e0b; padding:6px; text-align:center; border-radius:4px; font-size:0.7rem;">T-15 (Reserved)</div>
+                  <div style="background: rgba(16, 185, 129, 0.15); border:1px solid #10b981; padding:6px; text-align:center; border-radius:4px; font-size:0.7rem;">T-16 (Free)</div>
+                  <div style="background: rgba(239, 68, 68, 0.15); border:1px solid #ef4444; padding:6px; text-align:center; border-radius:4px; font-size:0.7rem;">T-18 (Dining)</div>
+                  <div style="background: rgba(59, 130, 246, 0.15); border:1px solid #3b82f6; padding:6px; text-align:center; border-radius:4px; font-size:0.7rem;">VIP-01 (Clean)</div>
+                </div>
+                <div style="margin-top:14px; font-size:0.7rem; color:var(--text-secondary); line-height: 1.4;">
+                  ⚡ Auto-sync with GoRouter dynamic deep-links &amp; Stripe terminal.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone Mockup: Customer Diner Experience -->
+          <div class="device-phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-restaurant-header">
+                <span class="qr-scan-badge">Table #14 Scanned</span>
+                <span class="lang-pill">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                  Auto: EN
+                </span>
+              </div>
+              <div style="font-size:0.75rem; font-weight:700; color:#fff;">L'Aura Cucina Moderna</div>
+              
+              <div class="phone-dish-card">
+                <div class="phone-dish-title">Dry-Aged Prime Ribeye</div>
+                <div class="phone-dish-meta">
+                  <span class="tag-mini">Spice: Mild</span>
+                  <span class="tag-mini vegan">Gluten-Free</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                  <span style="font-weight:700; color:#ff6b35; font-size:0.85rem;">$38.50</span>
+                  <button style="background:#ff6b35; border:none; color:#fff; border-radius:4px; padding:3px 8px; font-size:0.65rem; font-weight:600; cursor:pointer;">Customized + Add</button>
+                </div>
+              </div>
+
+              <div class="phone-dish-card" style="opacity:0.85;">
+                <div class="phone-dish-title">Wild Forest Mushroom Risotto</div>
+                <div class="phone-dish-meta">
+                  <span class="tag-mini vegan">Vegetarian</span>
+                  <span class="tag-mini">Truffle Oil</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                  <span style="font-weight:700; color:#ff6b35; font-size:0.85rem;">$26.00</span>
+                  <span style="font-size:0.65rem; color:#10b981; font-weight:600;">Daily Special -15%</span>
+                </div>
+              </div>
+
+              <div class="phone-reward-banner">
+                🎮 <strong>Wait-Time Mini-Game Active</strong><br>
+                Score 1,200 pts to unlock 10% dessert coupon!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       SECTION 3: THE 3-SIDED ECOSYSTEM DEEP-DIVE
+       ========================================================================== -->
+  <section class="section ecosystem-section" id="ecosystem">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-pill emerald">Ecosystem Deep-Dive &amp; Architecture</div>
+        <h2 class="section-title">Engineered for <span class="gradient-text">Every Stakeholder</span> in the Dining Value Chain</h2>
+        <p class="section-subtitle">
+          Explore the platform from the customer's seamless digital touchpoints, the restaurant operator's live KDS dashboard, and the super administrator's governance console.
+        </p>
+      </div>
+
+      <!-- Tabbed Switcher Bar -->
+      <div class="tab-nav-wrapper">
+        <div class="tab-nav" role="tablist">
+          <button class="tab-btn active" data-tab="customerTab" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            1. Customer (Smart Diner)
+          </button>
+          <button class="tab-btn" data-tab="restaurantTab" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            2. Restaurant (Operator &amp; KDS)
+          </button>
+          <button class="tab-btn" data-tab="adminTab" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            3. Super Admin &amp; System
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 1: CUSTOMER PERSPECTIVE -->
+      <div class="tab-pane active" id="customerTab" role="tabpanel">
+        <div class="ecosystem-grid">
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </div>
+            <h3>Instant QR Discovery</h3>
+            <p>Scan table tags to instantly reveal the restaurant profile, live menu, and seating credentials without native app installation friction or account barriers.</p>
+            <ul class="eco-spec-list">
+              <li>Instant Flutter Web CanvasKit load</li>
+              <li>Zero-friction guest session generation</li>
+              <li>Encrypted table identifier injection</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon emerald">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <h3>Dynamic AI Multi-Language</h3>
+            <p>Automated fallback translation for menus, dish descriptions, and allergens if customer's native locale is not manually configured by the culinary team.</p>
+            <ul class="eco-spec-list">
+              <li>Integrated Google Cloud Translation API</li>
+              <li>Client browser auto-locale detection</li>
+              <li>Granular ingredient terminology glossaries</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <h3>Real-Time Dynamic Pricing</h3>
+            <p>Live synchronization ensuring guests always see accurate menu pricing, happy-hour specials, timed discounts, and inventory-managed item availability.</p>
+            <ul class="eco-spec-list">
+              <li>Sub-second Redis pub/sub price broadcasts</li>
+              <li>Automated time-slotted happy hour pricing</li>
+              <li>Live out-of-stock item badge disabling</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon emerald">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <h3>Granular Customization</h3>
+            <p>Interactive customization matrix for culinary nuances: steak doneness, sodium levels, chili tolerance, bespoke sauce pairings, and allergy exclusions.</p>
+            <ul class="eco-spec-list">
+              <li>Hierarchical modifier rule validation</li>
+              <li>Allergen cross-contamination prevention flags</li>
+              <li>Live unit price re-calculation on modifier add</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+              </svg>
+            </div>
+            <h3>Flexible &amp; Split Payments</h3>
+            <p>Choose between In-App Online Payment (Card, Apple Pay, Google Pay) with customizable waiter tips, or In-Person Payment (Cash/Card at table) with split check routing.</p>
+            <ul class="eco-spec-list">
+              <li>Stripe Elements &amp; Apple Pay integration</li>
+              <li>Even or dish-by-dish split check support</li>
+              <li>Configurable waiter gratuity presets (5% - 25%)</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon emerald">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <h3>Pre-Arrival Dining Buffers</h3>
+            <p>Verified diners pre-order before physical arrival: kitchen preps takeout instantly, while dine-in tables are served precisely 10 minutes post-arrival check-in.</p>
+            <ul class="eco-spec-list">
+              <li>Geofenced proximity check-in alerts</li>
+              <li>10-minute hot-plate serving buffer algorithm</li>
+              <li>Takeout fast-track pickup verification</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+            </div>
+            <h3>Social Dining &amp; Reviews</h3>
+            <p>Rate overall venue, submit dish-specific reviews, upvote peer recommendations, flag inappropriate comments, and share dishes with rich OpenGraph cards.</p>
+            <ul class="eco-spec-list">
+              <li>Verified diner review badges only</li>
+              <li>Dish-level photostream &amp; flavor ratings</li>
+              <li>Dynamic OpenGraph deep links for WhatsApp/IG</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon emerald">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+            </div>
+            <h3>Favorites &amp; Daily Alerts</h3>
+            <p>Bookmark loved dishes and local culinary spots. Receive automated push notifications when favorite menu items appear on daily discount or seasonal menus.</p>
+            <ul class="eco-spec-list">
+              <li>Firebase Cloud Messaging (FCM) web push</li>
+              <li>Granular notification preference controls</li>
+              <li>Personalized dietary-aligned deal feeds</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: RESTAURANT PERSPECTIVE -->
+      <div class="tab-pane" id="restaurantTab" role="tabpanel">
+        <div class="ecosystem-grid">
+          <div class="glass-card eco-card">
+            <div class="eco-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M2 12h20"></path>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <h3>Custom Domains &amp; White-Label</h3>
+            <p>Connect custom domain names (order.yourbistro.com) or operate under dedicated high-speed subdomains with bespoke brand styling, colors, and hours.</p>
+            <ul class="eco-spec-list">
+              <li>Automated SSL provisioning via Cloudflare</li>
+              <li>Custom CSS theme variable injection</li>
+              <li>Multi-location brand switching</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="3" x2="9" y2="21"></line>
+              </svg>
+            </div>
+            <h3>Dynamic Table &amp; QR Engine</h3>
+            <p>Define dining zones (Patio, Main Dining, Bar, VIP), assign physical table numbers, and generate print-ready SVG/PDF vector QR codes with branded center logos.</p>
+            <ul class="eco-spec-list">
+              <li>300 DPI high-resolution CMYK print export</li>
+              <li>Dynamic table re-assignment without re-printing</li>
+              <li>Zone-based capacity &amp; turnaround metrics</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h3>Live Menu &amp; Inventory CMS</h3>
+            <p>Structured category builder (Appetizers, Mains, Cocktails, Desserts), rotational weekly specials, time-activated pricing rules, and instant out-of-stock toggles.</p>
+            <ul class="eco-spec-list">
+              <li>Drag-and-drop course re-ordering</li>
+              <li>Automated 86'd stock synchronization</li>
+              <li>Caloric and macro-nutrient input schemas</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 20V10"></path>
+                <path d="M12 20V4"></path>
+                <path d="M6 20v-6"></path>
+              </svg>
+            </div>
+            <h3>Kitchen Pre-Arrival KDS</h3>
+            <p>Dedicated order prioritization queue segregating pre-arrival takeout from dine-in. Kitchen initiates final fire step 10 minutes prior to anticipated guest arrival.</p>
+            <ul class="eco-spec-list">
+              <li>Visual auditory kitchen station timers</li>
+              <li>Color-coded urgency state triggers</li>
+              <li>Two-way host stand arrival check-in sync</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3>Staff &amp; Waiter Allocation</h3>
+            <p>Assign front-of-house staff to specific dining zones and individual tables. Configure automated gratuity rules, tip pooling, and discretionary service fees.</p>
+            <ul class="eco-spec-list">
+              <li>Zone-based server paging via smart watch/phone</li>
+              <li>Automated shift tip calculation reports</li>
+              <li>Role-restricted staff PIN authentication</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2 2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              </svg>
+            </div>
+            <h3>Customer CRM &amp; Visit Audit</h3>
+            <p>Audit guest visitation logs, repeat order frequency, lifetime spend, booking history, cancellation patterns, and favorite dish preferences for VIP treatment.</p>
+            <ul class="eco-spec-list">
+              <li>Automated high-roller VIP tags</li>
+              <li>Dietary restriction alerts on reservation check-in</li>
+              <li>Exportable CSV guest analytics</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3>Reputation Moderation Desk</h3>
+            <p>Audit incoming diner reviews, reply officially to guest feedback, flag abusive comments to platform supervisors, and auto-hide disputed reviews pending review.</p>
+            <ul class="eco-spec-list">
+              <li>Sentiment analysis triage tagging</li>
+              <li>Official owner reply verified badges</li>
+              <li>1-click abuse reporting workflow</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                <circle cx="6" cy="12" r="2"></circle>
+                <line x1="10" y1="12" x2="14" y2="12"></line>
+                <line x1="18" y1="12" x2="18.01" y2="12"></line>
+              </svg>
+            </div>
+            <h3>Gamification Management</h3>
+            <p>Enable or disable venue-approved mini-games (Culinary Trivia, Reflex Tap, Food Match) and map achievement score tiers to tangible kitchen reward coupons.</p>
+            <ul class="eco-spec-list">
+              <li>Configurable score thresholds (e.g. 1,000 pts)</li>
+              <li>Dynamic coupon validation in cart checkout</li>
+              <li>Table-level engagement analytics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: SUPER ADMIN & SYSTEM ARCHITECTURE -->
+      <div class="tab-pane" id="adminTab" role="tabpanel">
+        <div class="ecosystem-grid">
+          <div class="glass-card eco-card">
+            <div class="eco-icon emerald">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </div>
+            <h3>Global White-Label Theming</h3>
+            <p>Tenant-level styling controls allowing super administrators to adjust typography hierarchies, hex color palettes, corner radiuses, and brand assets across all venues.</p>
+            <ul class="eco-spec-list">
+              <li>Runtime dynamic CSS variable compilation</li>
+              <li>Multi-tenant asset isolation in Google Cloud Storage</li>
+              <li>Instant brand previews in staging sandboxes</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3>Granular Role-Based Access (RBAC)</h3>
+            <p>Provision sub-admins, venue managers, head chefs, and shift waitstaff with rigorously scoped cryptographic permissions across the entire platform ecosystem.</p>
+            <ul class="eco-spec-list">
+              <li>JWT claims with bitmask permission flags</li>
+              <li>Audit logging for all state-mutating operations</li>
+              <li>Enforced multi-factor authentication (MFA)</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon emerald">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                <rect x="9" y="9" width="6" height="6"></rect>
+                <line x1="9" y1="1" x2="9" y2="4"></line>
+                <line x1="15" y1="1" x2="15" y2="4"></line>
+                <line x1="9" y1="20" x2="9" y2="23"></line>
+                <line x1="15" y1="20" x2="15" y2="23"></line>
+              </svg>
+            </div>
+            <h3>Modular Component Switcher</h3>
+            <p>Toggle individual platform modules per restaurant subscription: Digital Menu Only, Online Table Reservations, Dine-In/Takeout, In-App Payments, or Gamification.</p>
+            <ul class="eco-spec-list">
+              <li>Zero-downtime feature flag toggles</li>
+              <li>Micro-frontend conditional component mounting</li>
+              <li>Automated tier-based feature enablement</li>
+            </ul>
+          </div>
+
+          <div class="glass-card eco-card">
+            <div class="eco-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+            </div>
+            <h3>Universal Deep-Linking Engine</h3>
+            <p>Dynamic URI routing redirects smartphone QR scans to the native Flutter app if installed, or falls back seamlessly to the ultra-fast responsive Flutter Web platform.</p>
+            <ul class="eco-spec-list">
+              <li>Apple Universal Links &amp; Android App Links</li>
+              <li>Flutter GoRouter declarative state navigation</li>
+              <li>Preserved query params for table &amp; campaign tracking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 4: ADVANCED DISCOVERY & MULTI-CRITERIA SEARCH ENGINE
+       ========================================================================== -->
+  <section class="section discovery-section" id="discovery">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-pill">Interactive Simulation</div>
+        <h2 class="section-title">Granular Multi-Criteria <span class="gradient-text">Discovery Engine</span></h2>
+        <p class="section-subtitle">
+          Test the live filtering matrix. Diners discover venues by dietary restrictions, spice thresholds, precise geolocation radius, price tier, and real-time open table statuses.
+        </p>
+      </div>
+
+      <div class="filter-arena-wrapper">
+        <!-- Search Input Bar -->
+        <div class="search-input-group">
+          <div class="search-input-field">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="liveSearchInput" placeholder="Search by venue name, dish (e.g. Ribeye, Pasta), or ingredient..." autocomplete="off">
+          </div>
+          <button class="btn btn-primary" id="resetFiltersBtn">Reset Filters</button>
+        </div>
+
+        <!-- Filter Chips Grid -->
+        <div class="filter-categories-grid">
+          <!-- Cuisines -->
+          <div>
+            <div class="filter-group-label">Cuisine Category</div>
+            <div class="chip-cloud" id="cuisineFilterGroup">
+              <span class="filter-chip active" data-filter="cuisine" data-val="all">All Cuisines</span>
+              <span class="filter-chip" data-filter="cuisine" data-val="italian">Italian</span>
+              <span class="filter-chip" data-filter="cuisine" data-val="japanese">Japanese</span>
+              <span class="filter-chip" data-filter="cuisine" data-val="persian">Persian</span>
+              <span class="filter-chip" data-filter="cuisine" data-val="mexican">Mexican</span>
+              <span class="filter-chip" data-filter="cuisine" data-val="finedining">Fine Dining</span>
+            </div>
+          </div>
+
+          <!-- Dietary & Health -->
+          <div>
+            <div class="filter-group-label">Dietary &amp; Health Standards</div>
+            <div class="chip-cloud" id="dietaryFilterGroup">
+              <span class="filter-chip" data-filter="dietary" data-val="vegan">Vegan</span>
+              <span class="filter-chip" data-filter="dietary" data-val="gluten-free">Gluten-Free</span>
+              <span class="filter-chip" data-filter="dietary" data-val="halal">Halal</span>
+              <span class="filter-chip" data-filter="dietary" data-val="kosher">Kosher</span>
+              <span class="filter-chip" data-filter="dietary" data-val="nut-free">Nut-Free</span>
+            </div>
+          </div>
+
+          <!-- Spice Metric & Price -->
+          <div>
+            <div class="filter-group-label">Spice Tolerance &amp; Price</div>
+            <div class="chip-cloud" id="spicePriceGroup">
+              <span class="filter-chip" data-filter="spice" data-val="mild">🌶️ Mild</span>
+              <span class="filter-chip" data-filter="spice" data-val="hot">🌶️🌶️ Hot</span>
+              <span class="filter-chip" data-filter="price" data-val="$$">$$ Moderate</span>
+              <span class="filter-chip" data-filter="price" data-val="$$$$">$$$$ Luxury</span>
+            </div>
+          </div>
+
+          <!-- Radius Slider -->
+          <div>
+            <div class="filter-group-label">Discovery Radius (Geolocation)</div>
+            <div class="range-slider-box">
+              <div class="range-header">
+                <span>Distance Range:</span>
+                <span class="range-val" id="radiusDisplay">10 km</span>
+              </div>
+              <input type="range" id="radiusSlider" min="2" max="25" value="10" step="1">
+              <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted);">
+                <span>Walkable (2km)</span>
+                <span>Metro (25km)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Simulated Result Cards -->
+        <div class="results-header-bar">
+          <div class="result-count">Showing <strong id="resultCountNumber">4</strong> matching verified venues</div>
+          <div class="lang-pill">
+            <span class="ticker-dot"></span> Live Filter Engine Active
+          </div>
+        </div>
+
+        <div class="result-cards-grid" id="simulatedResultsContainer">
+          <!-- Results injected via app.js -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 5: IN-APP GAMIFICATION & WAIT-TIME ENGAGEMENT
+       ========================================================================== -->
+  <section class="section gamification-section" id="gamification">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-pill emerald">Wait-Time Engagement Layer</div>
+        <h2 class="section-title">Zero Boring Waits: <span class="gradient-text">Interactive Gamification</span></h2>
+        <p class="section-subtitle">
+          Turn kitchen preparation wait-time into customer delight. Diners play lightweight culinary trivia and reflex games on their phones while their food is prepped, unlocking real-time discount tokens tied directly to checkout.
+        </p>
+      </div>
+
+      <div class="gamification-wrapper">
+        <!-- Interactive Playable Game Console -->
+        <div class="game-console" id="gameConsole">
+          <div class="console-header">
+            <div class="console-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                <path d="M6 12h4m-2-2v4"></path>
+                <circle cx="17" cy="10" r="1"></circle>
+                <circle cx="15" cy="14" r="1"></circle>
+              </svg>
+              SmartDine Wait-Time Trivia Arena
+            </div>
+            <div class="score-badge-box">
+              Score: <span id="gameScore">0</span> pts
+            </div>
+          </div>
+
+          <div class="trivia-card" id="triviaCard">
+            <div class="trivia-question" id="triviaQuestionText">
+              What culinary mother sauce is traditionally made with egg yolks, clarified butter, and lemon juice?
+            </div>
+            <div class="trivia-options-grid" id="triviaOptionsGrid">
+              <button class="trivia-opt-btn" data-correct="false">A) Béchamel Sauce</button>
+              <button class="trivia-opt-btn" data-correct="true">B) Hollandaise Sauce</button>
+              <button class="trivia-opt-btn" data-correct="false">C) Velouté Sauce</button>
+              <button class="trivia-opt-btn" data-correct="false">D) Espagnole Sauce</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Voucher Reward Container -->
+          <div class="voucher-unlock-box" id="voucherUnlockBox">
+            <div class="voucher-info">
+              <h4 id="voucherTitle">Next Milestone: 1,000 pts</h4>
+              <p id="voucherSubtitle">Answer correctly to unlock: 10% Off Dessert or Free Espresso</p>
+            </div>
+            <div class="voucher-code" id="voucherCodeDisplay">LOCKED</div>
+          </div>
+        </div>
+
+        <!-- Architectural Value Proposition -->
+        <div class="gamification-details">
+          <div class="eyebrow-pill">Proven Psychological ROI</div>
+          <h3 style="font-size: 1.8rem; margin-bottom: 20px;">Reduces Perceived Dining Wait Times by <span style="color:var(--accent-primary);">42%</span></h3>
+          <p style="margin-bottom: 24px;">
+            Traditional dining suffers peak-hour kitchen bottlenecks where patron dissatisfaction rises exponentially. MenuVerse replaces frustrating table waits with immersive, branded mini-games linked directly to order sessions.
+          </p>
+
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <div class="badge badge-emerald" style="padding:8px 12px; font-size:1rem;">1</div>
+              <div>
+                <strong style="color:#fff;">Session Token Binding:</strong>
+                <p style="font-size:0.9rem; margin-top:2px;">Points earned in the mini-game are securely bound to the active checkout cryptographic JWT session.</p>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <div class="badge badge-amber" style="padding:8px 12px; font-size:1rem;">2</div>
+              <div>
+                <strong style="color:#fff;">Dynamic Bill Injections:</strong>
+                <p style="font-size:0.9rem; margin-top:2px;">When milestone thresholds are reached, voucher codes automatically apply to digital checkout as promotional items.</p>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <div class="badge badge-blue" style="padding:8px 12px; font-size:1rem;">3</div>
+              <div>
+                <strong style="color:#fff;">Kitchen Pacing Sync:</strong>
+                <p style="font-size:0.9rem; margin-top:2px;">The game timer naturally adapts to the kitchen's live KDS prep clock, concluding precisely as appetizers arrive.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 6: PLATFORM UI ARCHITECTURE: THE 18 COMPLETE SYSTEM SCREENS
+       ========================================================================== -->
+  <section class="section screens-section" id="screens">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-pill">Design Manifest</div>
+        <h2 class="section-title">The 18 Architectural <span class="gradient-text">System Screens</span></h2>
+        <p class="section-subtitle">
+          Every viewport across the MenuVerse platform is engineered with responsive Flutter Web widgets and strictly typed declarative routes. Inspect the full 18-screen system manifest.
+        </p>
+      </div>
+
+      <div class="screens-grid">
+        <!-- Screen 1 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 01</span>
+            <span class="screen-route">/auth/login</span>
+          </div>
+          <h3>Auth &amp; Registration</h3>
+          <p>Multi-provider authentication supporting Email/Password, Phone OTP, and OAuth2 federated social logins (Google, Apple, Facebook) with automatic role detection.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Firebase Auth • JWT • OAuth2
+          </div>
+        </div>
+
+        <!-- Screen 2 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 02</span>
+            <span class="screen-route">/customer/dashboard</span>
+          </div>
+          <h3>Customer Personal Dashboard</h3>
+          <p>Diner hub highlighting recent orders, saved favorite dining venues, upcoming table reservations, personalized dietary recommendations, and accumulated points.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Flutter Responsive LayoutBuilder
+          </div>
+        </div>
+
+        <!-- Screen 3 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 03</span>
+            <span class="screen-route">/restaurants</span>
+          </div>
+          <h3>Restaurant Directory &amp; Discovery</h3>
+          <p>Dual grid and list browsing view featuring live open/closed badges, distance calculations, customer rating metrics, cuisine tags, and direct booking actions.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Google Maps API • Geolocation Matrix
+          </div>
+        </div>
+
+        <!-- Screen 4 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 04</span>
+            <span class="screen-route">/restaurant/:slug</span>
+          </div>
+          <h3>Restaurant Detail &amp; Profile</h3>
+          <p>High-res photo galleries, venue address, dynamic operating hours, interactive map location, chef bios, and direct reservation triggers.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Dynamic White-Label Theme Customizer
+          </div>
+        </div>
+
+        <!-- Screen 5 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 05</span>
+            <span class="screen-route">/menu/:restaurantId</span>
+          </div>
+          <h3>Interactive Menu View</h3>
+          <p>Categorized menu navigation (Appetizers, Mains, Drinks, Desserts), dish photography, ingredient inspection, allergen labels, and instant Add-to-Cart triggers.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Redis Cache • Multi-Language Fallback
+          </div>
+        </div>
+
+        <!-- Screen 6 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 06</span>
+            <span class="screen-route">/search</span>
+          </div>
+          <h3>Advanced Search &amp; Filter</h3>
+          <p>Multi-parameter discovery engine supporting dietary intolerance filters, spice tolerance meters, price ranges, walking radius sliders, and keyword autocomplete.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            PostgreSQL Full-Text Search Index
+          </div>
+        </div>
+
+        <!-- Screen 7 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 07</span>
+            <span class="screen-route">/dish/:dishId/modal</span>
+          </div>
+          <h3>Food Detail &amp; Customization Modal</h3>
+          <p>Granular item modifier modal allowing guests to select steak doneness, adjust sodium levels, add bespoke sauces, or request ingredient omissions.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Reactive Modifier Price Engine
+          </div>
+        </div>
+
+        <!-- Screen 8 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 08</span>
+            <span class="screen-route">/checkout/table</span>
+          </div>
+          <h3>Smart Table Order Checkout</h3>
+          <p>Real-time cart inspection, table number auto-population from QR scan, dietary summary validation, and unlockable game voucher coupon badge application.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Encrypted QR Session Injection
+          </div>
+        </div>
+
+        <!-- Screen 9 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 09</span>
+            <span class="screen-route">/checkout/payment</span>
+          </div>
+          <h3>Payment Gateway &amp; Split Check</h3>
+          <p>Multi-channel checkout enabling In-App Apple Pay, Google Pay, credit card processing, split-bill mathematics, and customizable waiter tip percentage sliders.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Stripe Payment Intents • Apple Pay API
+          </div>
+        </div>
+
+        <!-- Screen 10 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 10</span>
+            <span class="screen-route">/orders/history</span>
+          </div>
+          <h3>Order &amp; Payment History</h3>
+          <p>Itemized chronological dining history, downloadable PDF tax invoices, re-order shortcuts, and item-by-item verified review submission prompts.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Server-Generated PDF Invoicing
+          </div>
+        </div>
+
+        <!-- Screen 11 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 11</span>
+            <span class="screen-route">/reservations/book</span>
+          </div>
+          <h3>Online Table Reservation System</h3>
+          <p>Interactive table booking calendar, party size selection, seating zone preference (Patio vs Dining), pre-arrival order linking, and instant SMS confirmation.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            PostgreSQL Slot Exclusion Locks
+          </div>
+        </div>
+
+        <!-- Screen 12 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 12</span>
+            <span class="screen-route">/restaurant/:id/reviews</span>
+          </div>
+          <h3>Restaurant Reviews &amp; Feedback</h3>
+          <p>Venue-level star ratings, guest comment streams, community upvotes, verified diner stamps, and supervisory dispute reporting triggers.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Verified Purchase Security Gates
+          </div>
+        </div>
+
+        <!-- Screen 13 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 13</span>
+            <span class="screen-route">/dish/:id/reviews</span>
+          </div>
+          <h3>Dish-Level Reviews &amp; Ingredients</h3>
+          <p>Granular review cards per individual dish, food photography uploads, spice accuracy metrics, and open social sharing links with custom OpenGraph headers.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            OpenGraph Dynamic Meta Tags
+          </div>
+        </div>
+
+        <!-- Screen 14 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 14</span>
+            <span class="screen-route">/arcade/wait-time</span>
+          </div>
+          <h3>Wait-Time Mini-Game Arena</h3>
+          <p>Interactive arcade containing Culinary Trivia, Reflex Tap, and Food Match. Live leaderboard ranking and score conversion into real checkout coupon codes.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Lightweight Canvas / WebGL Engine
+          </div>
+        </div>
+
+        <!-- Screen 15 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 15</span>
+            <span class="screen-route">/vendor/kds</span>
+          </div>
+          <h3>Restaurant Operations Dashboard</h3>
+          <p>Live Kitchen Display System (KDS), incoming ticket streams, table matrix status, preparation timers, waiter call notices, and 10-minute pre-arrival queues.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            WebSocket Bidirectional Event Bus
+          </div>
+        </div>
+
+        <!-- Screen 16 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 16</span>
+            <span class="screen-route">/vendor/menu-cms</span>
+          </div>
+          <h3>Restaurant Configuration &amp; Menu CMS</h3>
+          <p>Multi-lingual menu management, high-res photo uploads, allergen tagging, stock toggle, time-based dynamic pricing triggers, and printable QR generator.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Cloudinary Asset Pipeline • SVG Exporter
+          </div>
+        </div>
+
+        <!-- Screen 17 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 17</span>
+            <span class="screen-route">/admin/governance</span>
+          </div>
+          <h3>Super Admin Management Console</h3>
+          <p>Multi-tenant organization oversight, sub-admin role assignment, feature flag modular toggling, revenue fee audits, and platform theme variable controls.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Scoped RBAC • Audit Event Logging
+          </div>
+        </div>
+
+        <!-- Screen 18 -->
+        <div class="screen-card">
+          <div class="screen-top">
+            <span class="screen-num">SCREEN 18</span>
+            <span class="screen-route">/system/404-network</span>
+          </div>
+          <h3>Support &amp; Error Recovery Pages</h3>
+          <p>Offline network fallbacks, automated session re-connect handlers, friendly 404 views, and direct routing shortcuts back to active table orders.</p>
+          <div class="screen-tech-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Offline PWA Service Worker Cache
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 7: SAAS PRICING MATRIX & SUBSCRIPTION PACKAGES
+       ========================================================================== -->
+  <section class="section pricing-section" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-pill emerald">SaaS Subscription Matrix</div>
+        <h2 class="section-title">Predictable Pricing for <span class="gradient-text">Venues of Every Scale</span></h2>
+        <p class="section-subtitle">
+          Whether you operate a boutique espresso bar or a multi-location hospitality chain, MenuVerse delivers maximum dining efficiency with transparent subscription tiers.
+        </p>
+      </div>
+
+      <!-- Monthly / Annual Billing Toggle -->
+      <div class="pricing-toggle-wrapper">
+        <span style="font-weight:600; font-size:0.95rem;">Monthly Billing</span>
+        <div class="pricing-switch" id="pricingToggleSwitch" role="switch" aria-checked="false">
+          <div class="pricing-switch-thumb"></div>
+        </div>
+        <span style="font-weight:600; font-size:0.95rem;">
+          Annual Billing <span class="badge badge-emerald" style="margin-left:6px;">Save 20%</span>
+        </span>
+      </div>
+
+      <div class="pricing-cards-grid">
+        <!-- Free Tier -->
+        <div class="glass-card pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-tier-name">Free Tier</h3>
+            <p class="pricing-tier-desc">Essential digital presence and QR menu exploration for neighborhood bistros and cafes.</p>
+            <div class="pricing-price-box">
+              <span class="price-currency">$</span>
+              <span class="price-amount" data-monthly="0" data-annual="0">0</span>
+              <span class="price-period">/ month</span>
+            </div>
+          </div>
+
+          <ul class="pricing-features-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Search &amp; discover restaurants on public portal</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Scan table QR to view menu with auto-translation</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Live price updates, dish photos, &amp; ingredient inspect</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Basic customer ratings, comments, and abuse flags</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Table reservation request inbox</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Basic dish favoriting and social sharing links</span>
+            </li>
+          </ul>
+
+          <button class="btn btn-secondary" style="width: 100%;">Get Started Free</button>
+        </div>
+
+        <!-- Basic Subscription -->
+        <div class="glass-card pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-tier-name">Basic Subscription</h3>
+            <p class="pricing-tier-desc">Complete digital ordering, payment routing, and wait-time arcade for fast-paced venues.</p>
+            <div class="pricing-price-box">
+              <span class="price-currency">$</span>
+              <span class="price-amount" data-monthly="9.99" data-annual="7.99">9.99</span>
+              <span class="price-period">/ month</span>
+            </div>
+          </div>
+
+          <ul class="pricing-features-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <strong>Everything in Free, plus:</strong>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Full online food ordering with table number auto-fill</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Flexible in-app card &amp; waiter payment routing</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Full access to in-app gaming arcade while waiting</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Order-ahead pre-arrival capability for diners</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Automated online ordering discounts &amp; promo engine</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Granular dish customization &amp; modifier checklist</span>
+            </li>
+          </ul>
+
+          <button class="btn btn-secondary" style="width: 100%;">Upgrade to Basic</button>
+        </div>
+
+        <!-- Premium Subscription (Featured) -->
+        <div class="glass-card pricing-card popular">
+          <div class="popular-badge">Most Popular • Enterprise Tier</div>
+          <div class="pricing-header">
+            <h3 class="pricing-tier-name">Premium Subscription</h3>
+            <p class="pricing-tier-desc">Full restaurant operating system with white-label domains, 10m pre-arrival buffers, and CRM.</p>
+            <div class="pricing-price-box">
+              <span class="price-currency">$</span>
+              <span class="price-amount" data-monthly="19.99" data-annual="15.99">19.99</span>
+              <span class="price-period">/ month</span>
+            </div>
+          </div>
+
+          <ul class="pricing-features-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <strong>Everything in Basic, plus:</strong>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>White-label domain mapping (order.yourvenue.com)</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Table definition &amp; branded high-res QR code generator</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Daily/weekly menus with dynamic time-based pricing</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>KDS queue with 10-minute pre-arrival dining coordination</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Multi-lingual CMS with AI auto-translation fallbacks</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Waiter assignment &amp; dynamic tip/service fee configuration</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Game reward and coupon allocation management</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Advanced customer CRM &amp; repeat visit behavioral analytics</span>
+            </li>
+          </ul>
+
+          <button class="btn btn-primary" style="width: 100%;">Start 14-Day Free Trial</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 8: TECHNICAL ARCHITECTURE & LIVE WIDGETS
+       ========================================================================== -->
+  <section class="section architecture-section" id="architecture">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-pill">Engineering Whitepaper</div>
+        <h2 class="section-title">Modern, Resilient <span class="gradient-text">Cloud Architecture</span></h2>
+        <p class="section-subtitle">
+          Engineered from the ground up for zero-latency dining environments. Powered by Flutter Web CanvasKit, distributed PostgreSQL, Redis in-memory caches, and real-time WebSockets.
+        </p>
+      </div>
+
+      <div class="arch-grid">
+        <!-- Arch Pillar 1 -->
+        <div class="glass-card arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </div>
+            <div>
+              <h3>Flutter Web Frontend</h3>
+              <span class="badge badge-emerald">CanvasKit • 60 FPS</span>
+            </div>
+          </div>
+          <p>Utilizes Flutter Web with CanvasKit WebGL rendering for fluid typography and vector icons across mobile Safari, Android Chrome, and ultra-wide POS terminals.</p>
+          <div class="arch-spec-box">
+            // Flutter Web GoRouter Configuration<br>
+            final goRouter = GoRouter(<br>
+            &nbsp;&nbsp;initialLocation: '/dine-in/:tableHash',<br>
+            &nbsp;&nbsp;routes: [ AppRoutes.menu, AppRoutes.checkout ]<br>
+            );
+          </div>
+        </div>
+
+        <!-- Arch Pillar 2 -->
+        <div class="glass-card arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+              </svg>
+            </div>
+            <div>
+              <h3>Backend &amp; Real-Time Data</h3>
+              <span class="badge badge-amber">PostgreSQL • Redis • WebSockets</span>
+            </div>
+          </div>
+          <p>Microservices backend coordinating transactional order writes into PostgreSQL with Redis caching for ultra-fast menu reads and sub-100ms WebSocket order pushes to kitchen displays.</p>
+          <div class="arch-spec-box">
+            // WebSocket Order Event Bus<br>
+            socket.on('table:order:created', (payload) =&gt; {<br>
+            &nbsp;&nbsp;kdsQueue.dispatchPriority(payload.tableId);<br>
+            });
+          </div>
+        </div>
+
+        <!-- Arch Pillar 3 -->
+        <div class="glass-card arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <div>
+              <h3>Security &amp; Identity</h3>
+              <span class="badge badge-blue">Firebase Auth • OAuth2 • JWT</span>
+            </div>
+          </div>
+          <p>Cryptographic JWT tokens, PBKDF2/bcrypt salted hashes, Firebase Auth integration, and scoped role-based access control protecting dining orders, customer PII, and financial receipts.</p>
+          <div class="arch-spec-box">
+            // Scoped RBAC Claims<br>
+            { "iss": "smartdine-auth", "role": "kitchen_staff",<br>
+            &nbsp;&nbsp;"perm": ["orders:read", "kds:update"] }
+          </div>
+        </div>
+
+        <!-- Arch Pillar 4 -->
+        <div class="glass-card arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+              </svg>
+            </div>
+            <div>
+              <h3>External API Ecosystem</h3>
+              <span class="badge badge-emerald">Google Maps • Translate • Stripe</span>
+            </div>
+          </div>
+          <p>Seamless integrations with Google Maps API for real-time venue radius queries, Google Cloud Translation API for dynamic menu glossaries, and Stripe for multi-currency processing.</p>
+          <div class="arch-spec-box">
+            // External Gateway Orchestration<br>
+            Stripe.createPaymentIntent({ amount, tip, currency });<br>
+            Translate.batchTranslate(menuItems, targetLocale);
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Tip Calculator & Split-Bill Simulation Widget -->
+      <div class="interactive-widget-box">
+        <div class="eyebrow-pill emerald">Interactive Payment Simulation</div>
+        <h3 style="margin-bottom: 8px;">Stripe Gateway &amp; Smart Tip Calculator Preview</h3>
+        <p style="margin-bottom: 24px;">
+          Experience how guests calculate server gratuities and split their checks directly on their smartphones without waiting for physical card machines.
+        </p>
+
+        <div class="tip-calc-grid">
+          <div>
+            <div style="margin-bottom: 18px;">
+              <label style="font-size:0.85rem; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:6px;">Sample Table Order Total ($):</label>
+              <input type="number" id="orderSubtotalInput" value="68.50" step="0.5" min="5" max="500" style="background:rgba(0,0,0,0.4); border:1px solid var(--border-glass-bright); padding:10px 14px; border-radius:var(--radius-sm); color:#fff; font-size:1.1rem; width:100%; max-width:260px; outline:none;">
+            </div>
+
+            <div style="margin-bottom: 18px;">
+              <label style="font-size:0.85rem; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:6px;">Select Server Gratuity:</label>
+              <div class="tip-pills" id="tipPercentageGroup">
+                <button class="tip-pill-btn" data-tip="0.05">5%</button>
+                <button class="tip-pill-btn" data-tip="0.10">10%</button>
+                <button class="tip-pill-btn active" data-tip="0.15">15%</button>
+                <button class="tip-pill-btn" data-tip="0.20">20%</button>
+                <button class="tip-pill-btn" data-tip="0.25">25%</button>
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size:0.85rem; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:6px;">Split Check Between Guests:</label>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <input type="range" id="splitGuestRange" min="1" max="8" value="2" style="max-width:240px;">
+                <span id="splitGuestCount" style="font-weight:700; color:var(--accent-primary);">2 Guests</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Dynamic Receipt Breakdown -->
+          <div class="tip-receipt-card">
+            <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.05em;">Digital Check Preview • Table #14</div>
+            <div class="receipt-line">
+              <span>Food &amp; Beverage Subtotal</span>
+              <span id="receiptSubtotalDisplay">$68.50</span>
+            </div>
+            <div class="receipt-line">
+              <span>Selected Waiter Gratuity (<span id="receiptTipPercentDisplay">15%</span>)</span>
+              <span id="receiptTipDisplay" style="color:#10b981;">+$10.28</span>
+            </div>
+            <div class="receipt-line">
+              <span>Tax (Estimated 8.5%)</span>
+              <span id="receiptTaxDisplay">$5.82</span>
+            </div>
+            <div class="receipt-total">
+              <span>Total Bill</span>
+              <span id="receiptTotalDisplay">$84.60</span>
+            </div>
+            <div style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border-glass); display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:0.85rem; color:var(--accent-primary); font-weight:700;">Per Guest Share:</span>
+              <span id="receiptPerPersonDisplay" style="font-size:1.1rem; font-weight:800; color:#10b981;">$42.30</span>
+            </div>
+            <button class="btn btn-primary btn-sm" style="width:100%; margin-top:18px;" id="simulatedPayBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+              Simulate In-App Apple Pay
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 9: FOOTER & CONVERSION HOOK
+       ========================================================================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <!-- Col 1: Brand & Bio -->
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <div class="logo-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                <path d="M7 2v20"/>
+                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+              </svg>
+            </div>
+            <div class="brand-title">
+              MenuVerse
+              <span>SmartDine Platform</span>
+            </div>
+          </div>
+          <p>
+            An enterprise-scale digital dining operating system engineered in Flutter Web. Delivering real-time menu sync, wait-time dining gamification, and pre-arrival kitchen orchestration.
+          </p>
+          <div style="margin-top: 18px; font-size: 0.85rem; color: var(--text-muted);">
+            Engineered by <strong>Sadra Babai</strong> • High-Performance Web &amp; Mobile Architect.
+          </div>
+        </div>
+
+        <!-- Col 2: For Diners -->
+        <div class="footer-col">
+          <h4>For Diners</h4>
+          <ul class="footer-links">
+            <li><a href="#discovery">Discover Restaurants</a></li>
+            <li><a href="#discovery">Dietary &amp; Allergy Filter</a></li>
+            <li><a href="#gamification">Wait-Time Mini-Games</a></li>
+            <li><a href="#screens">Diner Dashboard</a></li>
+            <li><a href="#screens">Split Bill &amp; Apple Pay</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: For Venues -->
+        <div class="footer-col">
+          <h4>For Venues</h4>
+          <ul class="footer-links">
+            <li><a href="#ecosystem">Live KDS Kitchen Display</a></li>
+            <li><a href="#ecosystem">Custom Domains &amp; Branding</a></li>
+            <li><a href="#ecosystem">Dynamic Table QR Generator</a></li>
+            <li><a href="#pricing">Subscription Tiers</a></li>
+            <li><a href="#screens">Staff &amp; Waiter Allocation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Newsletter & Locale -->
+        <div class="footer-col">
+          <h4>Culinary Tech Dispatch</h4>
+          <p style="font-size:0.85rem; margin-bottom:12px;">Get quarterly architecture breakdowns and restaurateur case studies.</p>
+          <form id="newsletterForm">
+            <div class="newsletter-box">
+              <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="chef@yourbistro.com" required>
+              <button type="submit" class="btn btn-primary btn-sm">Join</button>
+            </div>
+          </form>
+
+          <div style="margin-top: 24px;">
+            <label style="font-size:0.75rem; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:6px;">Simulated Platform Locale</label>
+            <select class="lang-selector-select" id="localeSelector" aria-label="Select Platform Language">
+              <option value="en">English (US / UK)</option>
+              <option value="de">Deutsch (German)</option>
+              <option value="fr">Français (French)</option>
+              <option value="fa">فارسی (Persian)</option>
+              <option value="es">Español (Spanish)</option>
+              <option value="it">Italiano (Italian)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <div>
+          &copy; 2026 MenuVerse / SmartDine Platform. All rights reserved. Portfolio Showcase Edition.
+        </div>
+        <div style="display:flex; gap:20px;">
+          <a href="#ecosystem">Privacy Policy</a>
+          <a href="#architecture">System Status: 99.98%</a>
+          <a href="#screens">Architecture Manifest</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Root Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
