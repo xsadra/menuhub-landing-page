@@ -235,6 +235,36 @@ img, svg {
   border-radius: var(--radius-sm);
 }
 
+.btn:disabled, .btn[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn.loading {
+  position: relative;
+  pointer-events: none;
+  color: transparent !important;
+}
+
+.btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 50%;
+  left: 50%;
+  margin: -9px 0 0 -9px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: btnSpinner 0.75s linear infinite;
+}
+
+@keyframes btnSpinner {
+  to { transform: rotate(360deg); }
+}
+
 .badge {
   display: inline-flex;
   align-items: center;

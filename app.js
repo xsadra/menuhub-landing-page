@@ -648,14 +648,54 @@ function initLocaleSimulator() {
 function initNewsletterForm() {
   const form = document.getElementById('newsletterForm');
   const emailInput = document.getElementById('newsletterEmail');
+  if (!form || !emailInput) return;
 
-  if (!form) return;
+  const submitBtn = form.querySelector('button[type="submit"]');
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (emailInput && emailInput.value) {
-      showToast(`✉️ Subscribed! Tech dispatch scheduled for ${emailInput.value}`);
-      emailInput.value = '';
+    const email = emailInput.value.trim();
+
+    // Client-side regex validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      showToast('⚠️ Please enter a valid email address.');
+      emailInput.focus();
+      return;
+    }
+
+    // Set loading state
+    if (submitBtn) {
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+    }
+    emailInput.disabled = true;
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
+        showToast(`✉️ ${data.message || 'Subscribed successfully!'}`);
+        form.reset();
+      } else {
+        const errorMsg = data.error || 'Failed to submit. Please try again.';
+        showToast(`⚠️ ${errorMsg}`);
+      }
+    } catch (err) {
+      console.error('[Newsletter] Network or fetch error:', err);
+      showToast('⚠️ Network connection issue. Please verify your connection and retry.');
+    } finally {
+      if (submitBtn) {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+      }
+      emailInput.disabled = false;
     }
   });
 }
@@ -756,21 +796,77 @@ function initModals() {
     });
   });
 
-  // Venue onboarding form submission
+  // Venue onboarding form submission (Checkout & Plan Lead)
   const venueForm = document.getElementById('venueOnboardingForm');
   if (venueForm) {
-    venueForm.addEventListener('submit', (e) => {
+    const submitBtn = venueForm.querySelector('button[type="submit"]');
+
+    venueForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const nameInput = document.getElementById('venueNameInput');
       const emailInput = document.getElementById('venueEmailInput');
       const planInput = document.getElementById('selectedPlanInput');
-      const name = nameInput ? nameInput.value : 'Your Venue';
-      const email = emailInput ? emailInput.value : 'your email';
-      const plan = planInput ? planInput.value : 'Selected Plan';
+      const tablesSelect = document.getElementById('venueTablesCount');
+      const cuisineSelect = document.getElementById('venueCuisineSelect');
 
-      closeAllModals();
-      showToast(`🚀 Sandbox Provisioned for ${name}! Access credentials dispatched to ${email}.`);
-      venueForm.reset();
+      const venueName = nameInput ? nameInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const plan = planInput ? planInput.value : 'Premium Subscription';
+      const tables = tablesSelect ? tablesSelect.value : '11-25 Tables';
+      const cuisine = cuisineSelect ? cuisineSelect.value : 'general';
+
+      // Validation
+      if (!venueName) {
+        showToast('⚠️ Please enter your venue / restaurant name.');
+        nameInput?.focus();
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        showToast('⚠️ Please enter a valid business email address.');
+        emailInput?.focus();
+        return;
+      }
+
+      // Loading state
+      if (submitBtn) {
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+      }
+
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            venueName,
+            email,
+            plan,
+            tables,
+            cuisine
+          })
+        });
+
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && data.success) {
+          closeAllModals();
+          showToast(`🚀 ${data.message || 'Sandbox provisioned! Admin notified.'}`);
+          venueForm.reset();
+        } else {
+          const errorMsg = data.error || 'Failed to submit onboarding. Please try again.';
+          showToast(`⚠️ ${errorMsg}`);
+        }
+      } catch (err) {
+        console.error('[Checkout] Network or fetch error:', err);
+        showToast('⚠️ Network connection issue. Please verify your connection and retry.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.classList.remove('loading');
+          submitBtn.disabled = false;
+        }
+      }
     });
   }
 }
