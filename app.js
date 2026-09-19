@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initPricingToggle();
   initLocaleSimulator();
   initNewsletterForm();
+  initModals();
+  initSmartLinks();
 });
 
 /* ==========================================================================
@@ -391,8 +393,24 @@ function initDiscoveryEngine() {
           <span style="color: var(--emerald-primary); font-weight: 600;">● ${v.status}</span>
           <span style="font-family: monospace; font-weight: 700; color: #fff;">${v.distance} km away</span>
         </div>
+
+        <button class="btn btn-secondary btn-sm reserve-venue-btn" data-venue="${v.name}" style="width: 100%; margin-top: 4px; font-size: 0.8rem; padding: 8px;">
+          View Live Menu &amp; Book Table &rarr;
+        </button>
       </div>
     `).join('');
+
+    // Attach click listener to venue action buttons
+    resultsContainer.querySelectorAll('.reserve-venue-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const venue = btn.getAttribute('data-venue');
+        showToast(`🛎️ Synchronizing live table matrix & QR menu for ${venue}`);
+        const screensSection = document.getElementById('screens');
+        if (screensSection) {
+          screensSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
   }
 
   // Initial render
@@ -665,3 +683,183 @@ function showToast(message) {
     }, 300);
   }, 3800);
 }
+
+/* ==========================================================================
+   9. INTERACTIVE MODALS & SYSTEM DIALOGS
+   ========================================================================== */
+function initModals() {
+  const modalTriggers = document.querySelectorAll('[data-open-modal]');
+  const modalCloseBtns = document.querySelectorAll('[data-close-modal]');
+  const backdrops = document.querySelectorAll('.modal-backdrop');
+
+  modalTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const modalId = btn.getAttribute('data-open-modal');
+      const targetModal = document.getElementById(modalId);
+      if (!targetModal) return;
+
+      // Pre-select plan if tier was specified
+      const tier = btn.getAttribute('data-tier');
+      if (tier && modalId === 'venueModal') {
+        const planChips = targetModal.querySelectorAll('.plan-chip-btn');
+        const planInput = targetModal.querySelector('#selectedPlanInput');
+        planChips.forEach(chip => {
+          if (chip.getAttribute('data-plan') === tier) {
+            planChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            if (planInput) planInput.value = tier;
+          }
+        });
+      }
+
+      targetModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  modalCloseBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      closeAllModals();
+    });
+  });
+
+  backdrops.forEach(backdrop => {
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) {
+        closeAllModals();
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeAllModals();
+    }
+  });
+
+  function closeAllModals() {
+    backdrops.forEach(b => b.classList.remove('active'));
+    document.body.style.overflow = '';
+  }
+
+  // Plan chip clicks inside venue modal
+  document.querySelectorAll('.plan-chip-btn').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.plan-chip-btn').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const plan = chip.getAttribute('data-plan');
+      const planInput = document.getElementById('selectedPlanInput');
+      if (planInput) planInput.value = plan;
+      showToast(`Selected Plan: ${plan}`);
+    });
+  });
+
+  // Venue onboarding form submission
+  const venueForm = document.getElementById('venueOnboardingForm');
+  if (venueForm) {
+    venueForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById('venueNameInput');
+      const emailInput = document.getElementById('venueEmailInput');
+      const planInput = document.getElementById('selectedPlanInput');
+      const name = nameInput ? nameInput.value : 'Your Venue';
+      const email = emailInput ? emailInput.value : 'your email';
+      const plan = planInput ? planInput.value : 'Selected Plan';
+
+      closeAllModals();
+      showToast(`🚀 Sandbox Provisioned for ${name}! Access credentials dispatched to ${email}.`);
+      venueForm.reset();
+    });
+  }
+}
+
+/* ==========================================================================
+   10. SMART IN-PAGE NAVIGATION & DEAD LINK INTERCEPTION
+   ========================================================================== */
+function initSmartLinks() {
+  // Smart links that scroll to sections and optionally trigger tabs or inputs
+  document.querySelectorAll('.smart-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      const tabTarget = link.getAttribute('data-tab');
+      const action = link.getAttribute('data-action');
+      const screenNum = link.getAttribute('data-screen');
+
+      if (href && href.startsWith('#')) {
+        const targetEl = document.querySelector(href);
+        if (targetEl) {
+          e.preventDefault();
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+
+          // If a specific ecosystem tab is targeted (e.g. restaurantTab)
+          if (tabTarget) {
+            const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabTarget}"]`);
+            if (tabBtn) {
+              setTimeout(() => tabBtn.click(), 450);
+            }
+          }
+
+          // If dietary filter action
+          if (action === 'dietary') {
+            setTimeout(() => {
+              const veganChip = document.querySelector('#dietaryFilterGroup .filter-chip[data-val="vegan"]');
+              if (veganChip && !veganChip.classList.contains('active')) {
+                veganChip.click();
+              }
+              showToast('🔍 Focused on Dietary & Allergen Filters');
+            }, 500);
+          }
+
+          // If tip calculator action
+          if (action === 'tip-calc') {
+            setTimeout(() => {
+              const tipInput = document.getElementById('orderSubtotalInput');
+              if (tipInput) {
+                tipInput.focus();
+                tipInput.style.boxShadow = '0 0 0 3px rgba(255, 107, 53, 0.4)';
+                setTimeout(() => tipInput.style.boxShadow = '', 2000);
+              }
+              showToast('💳 Focused on Tip Calculator & Split Check');
+            }, 500);
+          }
+
+          // If specific screen was targeted
+          if (screenNum) {
+            showToast(`Navigated to System Screen #${screenNum}`);
+          }
+        }
+      }
+    });
+  });
+
+  // Hero phone mockup dish add button
+  const phoneDishBtn = document.getElementById('phoneAddDishBtn');
+  if (phoneDishBtn) {
+    phoneDishBtn.addEventListener('click', () => {
+      showToast('🥩 Wagyu Ribeye (Med-Rare, Gluten-Free) added to Table #14 Order!');
+    });
+  }
+
+  // GLOBAL DEAD LINK AUDIT & INTERCEPTION
+  // Catch any remaining anchor tag with href="#" or non-existent hash targets
+  document.querySelectorAll('a').forEach(anchor => {
+    const href = anchor.getAttribute('href');
+    if (!href || href === '#' || href === '#!') {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast('ℹ️ This feature is currently in closed preview. Coming soon!');
+      });
+    } else if (href.startsWith('#') && href.length > 1) {
+      // If the target element does not exist in DOM
+      const targetId = href.substring(1);
+      if (!document.getElementById(targetId)) {
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          showToast(`ℹ️ Portal section #${targetId} is being provisioned.`);
+        });
+      }
+    }
+  });
+}
+

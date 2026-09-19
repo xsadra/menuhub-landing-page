@@ -58,7 +58,7 @@
 
   <nav class="main-navbar" id="navbar">
     <div class="container nav-container">
-      <a href="#" class="brand-logo" aria-label="MenuVerse Homepage">
+      <a href="#hero" class="brand-logo" aria-label="MenuVerse Homepage">
         <div class="logo-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
@@ -83,7 +83,7 @@
 
       <div class="nav-cta-group">
         <a href="#discovery" class="btn btn-secondary btn-sm" id="navDemoBtn">Interactive Demo</a>
-        <a href="#pricing" class="btn btn-primary btn-sm">Get Started Free</a>
+        <button class="btn btn-primary btn-sm" id="navGetStartedBtn" data-open-modal="venueModal" data-tier="Free Tier">Get Started Free</button>
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -225,7 +225,7 @@
                 </div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
                   <span style="font-weight:700; color:#ff6b35; font-size:0.85rem;">$38.50</span>
-                  <button style="background:#ff6b35; border:none; color:#fff; border-radius:4px; padding:3px 8px; font-size:0.65rem; font-weight:600; cursor:pointer;">Customized + Add</button>
+                  <button style="background:#ff6b35; border:none; color:#fff; border-radius:4px; padding:3px 8px; font-size:0.65rem; font-weight:600; cursor:pointer;" id="phoneAddDishBtn">Customized + Add</button>
                 </div>
               </div>
 
@@ -1165,7 +1165,7 @@
             </li>
           </ul>
 
-          <button class="btn btn-secondary" style="width: 100%;">Get Started Free</button>
+          <button class="btn btn-secondary pricing-tier-btn" data-open-modal="venueModal" data-tier="Free Tier" style="width: 100%;">Get Started Free</button>
         </div>
 
         <!-- Basic Subscription -->
@@ -1211,7 +1211,7 @@
             </li>
           </ul>
 
-          <button class="btn btn-secondary" style="width: 100%;">Upgrade to Basic</button>
+          <button class="btn btn-secondary pricing-tier-btn" data-open-modal="venueModal" data-tier="Basic Subscription" style="width: 100%;">Upgrade to Basic</button>
         </div>
 
         <!-- Premium Subscription (Featured) -->
@@ -1266,7 +1266,7 @@
             </li>
           </ul>
 
-          <button class="btn btn-primary" style="width: 100%;">Start 14-Day Free Trial</button>
+          <button class="btn btn-primary pricing-tier-btn" data-open-modal="venueModal" data-tier="Premium Subscription" style="width: 100%;">Start 14-Day Free Trial</button>
         </div>
       </div>
     </div>
@@ -1481,11 +1481,11 @@
         <div class="footer-col">
           <h4>For Diners</h4>
           <ul class="footer-links">
-            <li><a href="#discovery">Discover Restaurants</a></li>
-            <li><a href="#discovery">Dietary &amp; Allergy Filter</a></li>
-            <li><a href="#gamification">Wait-Time Mini-Games</a></li>
-            <li><a href="#screens">Diner Dashboard</a></li>
-            <li><a href="#screens">Split Bill &amp; Apple Pay</a></li>
+            <li><a href="#discovery" class="smart-link" data-scroll="discovery">Discover Restaurants</a></li>
+            <li><a href="#discovery" class="smart-link" data-scroll="discovery" data-action="dietary">Dietary &amp; Allergy Filter</a></li>
+            <li><a href="#gamification" class="smart-link" data-scroll="gamification">Wait-Time Mini-Games</a></li>
+            <li><a href="#screens" class="smart-link" data-scroll="screens" data-screen="2">Diner Dashboard (Screen #2)</a></li>
+            <li><a href="#architecture" class="smart-link" data-scroll="architecture" data-action="tip-calc">Split Bill &amp; Apple Pay</a></li>
           </ul>
         </div>
 
@@ -1493,11 +1493,11 @@
         <div class="footer-col">
           <h4>For Venues</h4>
           <ul class="footer-links">
-            <li><a href="#ecosystem">Live KDS Kitchen Display</a></li>
-            <li><a href="#ecosystem">Custom Domains &amp; Branding</a></li>
-            <li><a href="#ecosystem">Dynamic Table QR Generator</a></li>
-            <li><a href="#pricing">Subscription Tiers</a></li>
-            <li><a href="#screens">Staff &amp; Waiter Allocation</a></li>
+            <li><a href="#ecosystem" class="smart-link" data-scroll="ecosystem" data-tab="restaurantTab">Live KDS Kitchen Display</a></li>
+            <li><a href="#ecosystem" class="smart-link" data-scroll="ecosystem" data-tab="restaurantTab">Custom Domains &amp; Branding</a></li>
+            <li><a href="#ecosystem" class="smart-link" data-scroll="ecosystem" data-tab="restaurantTab">Dynamic Table QR Generator</a></li>
+            <li><a href="#pricing" class="smart-link" data-scroll="pricing">Subscription Tiers</a></li>
+            <li><a href="#screens" class="smart-link" data-scroll="screens" data-screen="15">Staff &amp; Waiter Allocation (Screen #15)</a></li>
           </ul>
         </div>
 
@@ -1531,10 +1531,10 @@
         <div>
           &copy; 2026 MenuVerse / SmartDine Platform. All rights reserved. Portfolio Showcase Edition.
         </div>
-        <div style="display:flex; gap:20px;">
-          <a href="#ecosystem">Privacy Policy</a>
-          <a href="#architecture">System Status: 99.98%</a>
-          <a href="#screens">Architecture Manifest</a>
+        <div style="display:flex; gap:20px; align-items:center;">
+          <button class="footer-text-btn" data-open-modal="policyModal">Privacy Policy</button>
+          <button class="footer-text-btn" data-open-modal="statusModal"><span class="ticker-dot" style="display:inline-block; margin-right:4px;"></span> System Status: 99.98%</button>
+          <a href="#screens" class="smart-link" data-scroll="screens">Architecture Manifest</a>
         </div>
       </div>
     </div>
@@ -1542,6 +1542,163 @@
 
   <!-- Toast Notification Root Container -->
   <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ==========================================================================
+       MODAL 1: VENUE ONBOARDING & FREE TRIAL ACCESS MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="venueModal" role="dialog" aria-modal="true" aria-labelledby="venueModalTitle">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" data-close-modal aria-label="Close dialog">&times;</button>
+      <div class="modal-header">
+        <div class="eyebrow-pill emerald" style="margin-bottom:8px;">Instant Venue Onboarding</div>
+        <h3 id="venueModalTitle">Launch Your Digital Dining Portal</h3>
+        <p style="font-size:0.88rem; color:var(--text-secondary);">Start your 14-day zero-risk trial. Deploy dynamic QR codes, real-time menus, and KDS synchronization in under 10 minutes.</p>
+      </div>
+
+      <form id="venueOnboardingForm">
+        <div class="modal-form-group">
+          <label class="modal-label" for="venueNameInput">Restaurant / Venue Name</label>
+          <input type="text" class="modal-input" id="venueNameInput" placeholder="e.g. L'Aura Bistro &amp; Bar" required>
+        </div>
+
+        <div class="modal-form-group">
+          <label class="modal-label" for="venueEmailInput">Manager / Operator Business Email</label>
+          <input type="email" class="modal-input" id="venueEmailInput" placeholder="owner@yourrestaurant.com" required>
+        </div>
+
+        <div class="modal-form-group">
+          <label class="modal-label">Selected Subscription Tier</label>
+          <div class="plan-selector-grid">
+            <div class="plan-chip-btn" data-plan="Free Tier">Free ($0/mo)</div>
+            <div class="plan-chip-btn" data-plan="Basic Subscription">Basic ($9.99/mo)</div>
+            <div class="plan-chip-btn active" data-plan="Premium Subscription">Premium ($19.99/mo)</div>
+          </div>
+          <input type="hidden" id="selectedPlanInput" value="Premium Subscription">
+        </div>
+
+        <div class="modal-form-group" style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+          <div>
+            <label class="modal-label" for="venueTablesCount">Estimated Tables</label>
+            <select class="modal-select" id="venueTablesCount">
+              <option value="1-10">1 - 10 Tables</option>
+              <option value="11-25" selected>11 - 25 Tables</option>
+              <option value="26-50">26 - 50 Tables</option>
+              <option value="50+">50+ (Multi-Zone)</option>
+            </select>
+          </div>
+          <div>
+            <label class="modal-label" for="venueCuisineSelect">Primary Cuisine</label>
+            <select class="modal-select" id="venueCuisineSelect">
+              <option value="italian">Italian / Mediterranean</option>
+              <option value="japanese">Japanese / Asian</option>
+              <option value="persian">Persian / Middle Eastern</option>
+              <option value="mexican">Mexican / Latin</option>
+              <option value="finedining">Fine Dining / French</option>
+              <option value="other">Other / Multi-Concept</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+          Provision Instant Sandbox Portal &rarr;
+        </button>
+        <div style="font-size:0.75rem; color:var(--text-muted); text-align:center; margin-top:10px;">
+          🔒 Zero setup fees. No credit card required for sandbox test.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: SYSTEM INFRASTRUCTURE STATUS & TELEMETRY MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="statusModal" role="dialog" aria-modal="true" aria-labelledby="statusModalTitle">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" data-close-modal aria-label="Close dialog">&times;</button>
+      <div class="modal-header">
+        <div class="eyebrow-pill emerald" style="margin-bottom:8px;">Global Cluster Telemetry</div>
+        <h3 id="statusModalTitle">Live Infrastructure Status</h3>
+        <p style="font-size:0.88rem; color:var(--text-secondary);">Real-time operational health of MenuVerse distributed edge network, database clusters, and payment gateways.</p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <div class="status-item">
+          <div>
+            <strong style="color:#fff; font-size:0.9rem;">WebSocket Order Bus</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Real-time bidirectional kitchen ticket delivery</div>
+          </div>
+          <div class="status-indicator"><span class="pulse-dot"></span> 100% Operational (18ms)</div>
+        </div>
+
+        <div class="status-item">
+          <div>
+            <strong style="color:#fff; font-size:0.9rem;">Flutter Web CanvasKit CDN</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Cloudflare edge asset rendering &amp; caching</div>
+          </div>
+          <div class="status-indicator"><span class="pulse-dot"></span> 99.99% Operational</div>
+        </div>
+
+        <div class="status-item">
+          <div>
+            <strong style="color:#fff; font-size:0.9rem;">PostgreSQL Multi-AZ Cluster</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Primary / Replica transaction locks</div>
+          </div>
+          <div class="status-indicator"><span class="pulse-dot"></span> 99.98% Operational</div>
+        </div>
+
+        <div class="status-item">
+          <div>
+            <strong style="color:#fff; font-size:0.9rem;">Redis In-Memory Menu Cache</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Sub-millisecond localized menu reads</div>
+          </div>
+          <div class="status-indicator"><span class="pulse-dot"></span> 100% Operational (1.2ms)</div>
+        </div>
+
+        <div class="status-item">
+          <div>
+            <strong style="color:#fff; font-size:0.9rem;">Stripe Payments &amp; Apple Pay Intents</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Card processing, tokenization, &amp; payout engine</div>
+          </div>
+          <div class="status-indicator"><span class="pulse-dot"></span> 100% Operational</div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary btn-sm" style="width:100%;" data-close-modal>Close Telemetry Monitor</button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 3: PRIVACY & SECURITY POLICY MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="policyModal" role="dialog" aria-modal="true" aria-labelledby="policyModalTitle">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" data-close-modal aria-label="Close dialog">&times;</button>
+      <div class="modal-header">
+        <div class="eyebrow-pill" style="margin-bottom:8px;">Data Protection &amp; Security</div>
+        <h3 id="policyModalTitle">Privacy &amp; Security Standards</h3>
+        <p style="font-size:0.88rem; color:var(--text-secondary);">Enterprise data sovereignty, guest privacy protection, and payment encryption commitments.</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:16px; font-size:0.88rem; line-height:1.6; color:var(--text-secondary); margin-bottom:24px;">
+        <div>
+          <strong style="color:#fff;">1. Zero Unsolicited Guest Tracking</strong>
+          <p>MenuVerse operates without intrusive third-party ad tracking cookies. Diners scanning QR codes browse menus anonymously unless explicitly choosing to authenticate.</p>
+        </div>
+
+        <div>
+          <strong style="color:#fff;">2. PCI-DSS Level 1 Payment Security</strong>
+          <p>Credit card details and Apple Pay credentials never transit MenuVerse application servers. All transactions execute within Stripe's certified PCI-DSS Level 1 tokenized enclave.</p>
+        </div>
+
+        <div>
+          <strong style="color:#fff;">3. Ephemeral Dining Sessions &amp; GDPR / CCPA Compliance</strong>
+          <p>Table QR ordering tokens expire automatically after checkout. Diners can request immediate deletion of their visitation and review history at any time.</p>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary btn-sm" style="width:100%;" data-close-modal>Understood &amp; Accept</button>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
