@@ -1,13 +1,14 @@
 /**
- * Serverless Function: POST /api/newsletter
- * Compatible with Vercel, Netlify, and Cloud Functions
+ * Serverless handler: POST /api/newsletter
+ *
+ * @author Sadra Babai
+ * @maintainer Sadra Babai
  */
 
 const storage = require('../lib/storage');
 const mailer = require('../lib/mailer');
 
 module.exports = async function handler(req, res) {
-  // CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -49,7 +50,7 @@ module.exports = async function handler(req, res) {
         userAgent: metadata.userAgent
       });
     } catch (err) {
-      console.error('[Serverless:Newsletter] Mailer error:', err.message);
+      console.warn('[serverless:newsletter] Notification failed:', err.message);
     }
 
     return res.status(200).json({
@@ -58,7 +59,7 @@ module.exports = async function handler(req, res) {
       subscriber: { email: subscriber.email }
     });
   } catch (err) {
-    console.error('[Serverless:Newsletter] Error:', err);
+    console.error('[serverless:newsletter] Handler error:', err);
     return res.status(500).json({ success: false, error: 'Internal server error.' });
   }
 };

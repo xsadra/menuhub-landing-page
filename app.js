@@ -1,6 +1,8 @@
 /**
- * MENUVERSE / SMARTDINE PLATFORM - INTERACTIVE APPLICATION CONTROLLER
- * Vanilla ES6+ JavaScript - High-Performance, Zero Runtime Dependencies
+ * MenuHub Showcase & Interactive Application Controller
+ *
+ * @author Sadra Babai
+ * @maintainer Sadra Babai
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,23 +20,19 @@ document.addEventListener('DOMContentLoaded', () => {
   ObfuscatedEmailEngine.init();
 });
 
-/* ==========================================================================
-   1. NAVBAR SCROLL & ACTIVE SCROLLSPY
-   ========================================================================== */
+// --- Navigation & Scrollspy ---
 function initNavbarScroll() {
   const navbar = document.getElementById('navbar');
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('header[id], section[id]');
 
   window.addEventListener('scroll', () => {
-    // Background blur elevation on scroll
     if (window.scrollY > 40) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
 
-    // Scrollspy active state
     let currentSectionId = '';
     const scrollPos = window.scrollY + 120;
 
@@ -79,7 +77,6 @@ function initMobileMenu() {
     }
   });
 
-  // Close mobile menu on link click
   navLinks.querySelectorAll('a').forEach(anchor => {
     anchor.addEventListener('click', () => {
       if (window.innerWidth <= 768) {
@@ -89,9 +86,7 @@ function initMobileMenu() {
   });
 }
 
-/* ==========================================================================
-   2. 3-SIDED ECOSYSTEM TAB SWITCHER
-   ========================================================================== */
+// --- Persona Tabs (Diner / Restaurant / Admin) ---
 function initEcosystemTabs() {
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabPanes = document.querySelectorAll('.tab-pane');
@@ -100,7 +95,6 @@ function initEcosystemTabs() {
     btn.addEventListener('click', () => {
       const targetTabId = btn.getAttribute('data-tab');
 
-      // Update button active state
       tabButtons.forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-selected', 'false');
@@ -108,7 +102,6 @@ function initEcosystemTabs() {
       btn.classList.add('active');
       btn.setAttribute('aria-selected', 'true');
 
-      // Update pane active state
       tabPanes.forEach(pane => {
         pane.classList.remove('active');
         if (pane.id === targetTabId) {
@@ -119,9 +112,7 @@ function initEcosystemTabs() {
   });
 }
 
-/* ==========================================================================
-   3. ADVANCED DISCOVERY & MULTI-CRITERIA SEARCH ENGINE SIMULATION
-   ========================================================================== */
+// --- Venue Discovery & Multi-Facet Filtering ---
 const sampleVenues = [
   {
     id: 1,
@@ -223,7 +214,6 @@ function initDiscoveryEngine() {
   const resultCountNumber = document.getElementById('resultCountNumber');
   const resetBtn = document.getElementById('resetFiltersBtn');
 
-  // Filter state
   const state = {
     keyword: '',
     cuisine: 'all',
@@ -233,7 +223,6 @@ function initDiscoveryEngine() {
     maxRadius: 10
   };
 
-  // Cuisine chips
   document.querySelectorAll('#cuisineFilterGroup .filter-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       document.querySelectorAll('#cuisineFilterGroup .filter-chip').forEach(c => c.classList.remove('active'));
@@ -243,7 +232,6 @@ function initDiscoveryEngine() {
     });
   });
 
-  // Dietary chips
   document.querySelectorAll('#dietaryFilterGroup .filter-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       const val = chip.getAttribute('data-val');
@@ -258,7 +246,6 @@ function initDiscoveryEngine() {
     });
   });
 
-  // Spice & Price chips
   document.querySelectorAll('#spicePriceGroup .filter-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       const type = chip.getAttribute('data-filter');
@@ -268,7 +255,6 @@ function initDiscoveryEngine() {
         chip.classList.remove('active');
         state[type] = null;
       } else {
-        // Unset peers in same group
         document.querySelectorAll(`#spicePriceGroup .filter-chip[data-filter="${type}"]`).forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         state[type] = val;
@@ -277,7 +263,6 @@ function initDiscoveryEngine() {
     });
   });
 
-  // Radius slider
   if (radiusSlider && radiusDisplay) {
     radiusSlider.addEventListener('input', (e) => {
       state.maxRadius = parseFloat(e.target.value);
@@ -286,7 +271,6 @@ function initDiscoveryEngine() {
     });
   }
 
-  // Keyword search input
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       state.keyword = e.target.value.toLowerCase().trim();
@@ -294,7 +278,6 @@ function initDiscoveryEngine() {
     });
   }
 
-  // Reset button
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       state.keyword = '';
@@ -317,35 +300,30 @@ function initDiscoveryEngine() {
     });
   }
 
+  // TODO: memoize filtered sets if venue catalog expands beyond initial showcase items
   function renderResults() {
     const filtered = sampleVenues.filter(venue => {
-      // Keyword matching (name, featured dish, ingredients)
       if (state.keyword) {
         const fullContent = `${venue.name} ${venue.cuisineDisplay} ${venue.featuredDish} ${venue.ingredients}`.toLowerCase();
         if (!fullContent.includes(state.keyword)) return false;
       }
 
-      // Cuisine matching
       if (state.cuisine !== 'all' && venue.cuisine !== state.cuisine) {
         return false;
       }
 
-      // Dietary matching (all selected dietary tags must be present)
       for (const diet of state.dietary) {
         if (!venue.dietary.includes(diet)) return false;
       }
 
-      // Spice matching
       if (state.spice && venue.spice !== state.spice) {
         return false;
       }
 
-      // Price matching
       if (state.price && venue.price !== state.price) {
         return false;
       }
 
-      // Distance matching
       if (venue.distance > state.maxRadius) {
         return false;
       }
@@ -401,7 +379,6 @@ function initDiscoveryEngine() {
       </div>
     `).join('');
 
-    // Attach click listener to venue action buttons
     resultsContainer.querySelectorAll('.reserve-venue-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const venue = btn.getAttribute('data-venue');
@@ -414,13 +391,10 @@ function initDiscoveryEngine() {
     });
   }
 
-  // Initial render
   renderResults();
 }
 
-/* ==========================================================================
-   4. IN-APP GAMIFICATION & WAIT-TIME TRIVIA
-   ========================================================================== */
+// --- Wait-Time Dining Trivia Mini-Game ---
 const triviaQuestions = [
   {
     q: "What culinary mother sauce is traditionally made with egg yolks, clarified butter, and lemon juice?",
@@ -475,7 +449,6 @@ function initGamificationTrivia() {
       </button>
     `).join('');
 
-    // Attach click listeners to options
     optionsGrid.querySelectorAll('.trivia-opt-btn').forEach(btn => {
       btn.addEventListener('click', handleOptionClick);
     });
@@ -485,7 +458,6 @@ function initGamificationTrivia() {
     const clickedBtn = e.currentTarget;
     const isCorrect = clickedBtn.getAttribute('data-correct') === 'true';
 
-    // Disable all buttons in grid
     optionsGrid.querySelectorAll('.trivia-opt-btn').forEach(btn => {
       btn.disabled = true;
       if (btn.getAttribute('data-correct') === 'true') {
@@ -499,7 +471,6 @@ function initGamificationTrivia() {
       if (scoreDisplay) scoreDisplay.textContent = currentScore;
       showToast('Correct! +500 wait-time reward points');
 
-      // Milestone check
       if (currentScore >= 1000) {
         unlockVoucher();
       }
@@ -508,7 +479,6 @@ function initGamificationTrivia() {
       showToast('Incorrect answer! Ponder that while the chef preps.');
     }
 
-    // Advance to next question after brief delay
     setTimeout(() => {
       currentQuestionIndex = (currentQuestionIndex + 1) % triviaQuestions.length;
       loadQuestion(currentQuestionIndex);
@@ -526,13 +496,10 @@ function initGamificationTrivia() {
     showToast('🏆 Milestone Hit! Voucher DESSERT-15 unlocked!');
   }
 
-  // Load first question
   loadQuestion(0);
 }
 
-/* ==========================================================================
-   5. STRIPE GATEWAY & SMART TIP CALCULATOR SIMULATION
-   ========================================================================== */
+// --- Bill Splitting & Tip Calculator ---
 function initTipCalculator() {
   const subtotalInput = document.getElementById('orderSubtotalInput');
   const tipButtons = document.querySelectorAll('#tipPercentageGroup .tip-pill-btn');
@@ -548,7 +515,7 @@ function initTipCalculator() {
   const payBtn = document.getElementById('simulatedPayBtn');
 
   let currentTipRate = 0.15;
-  const taxRate = 0.085;
+  const taxRate = 0.085; // Standard 8.5% dining tax baseline
 
   function calculate() {
     let subtotal = parseFloat(subtotalInput ? subtotalInput.value : 68.50);
@@ -595,9 +562,7 @@ function initTipCalculator() {
   calculate();
 }
 
-/* ==========================================================================
-   6. SAAS PRICING MONTHLY / ANNUAL SWITCH
-   ========================================================================== */
+// --- Billing Cycle Switcher ---
 function initPricingToggle() {
   const switchToggle = document.getElementById('pricingToggleSwitch');
   const priceAmounts = document.querySelectorAll('.price-amount');
@@ -619,9 +584,7 @@ function initPricingToggle() {
   });
 }
 
-/* ==========================================================================
-   7. LOCALE SIMULATOR
-   ========================================================================== */
+// --- Platform Locale Simulator ---
 function initLocaleSimulator() {
   const localeSelector = document.getElementById('localeSelector');
   if (!localeSelector) return;
@@ -642,9 +605,7 @@ function initLocaleSimulator() {
   });
 }
 
-/* ==========================================================================
-   8. NEWSLETTER SUBSCRIPTION & TOAST NOTIFICATION UTILITY
-   ========================================================================== */
+// --- Newsletter Subscription ---
 function initNewsletterForm() {
   const form = document.getElementById('newsletterForm');
   const emailInput = document.getElementById('newsletterEmail');
@@ -656,7 +617,6 @@ function initNewsletterForm() {
     e.preventDefault();
     const email = emailInput.value.trim();
 
-    // Client-side regex validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailRegex.test(email)) {
       showToast('⚠️ Please enter a valid email address.');
@@ -664,7 +624,6 @@ function initNewsletterForm() {
       return;
     }
 
-    // Set loading state
     if (submitBtn) {
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
@@ -688,7 +647,7 @@ function initNewsletterForm() {
         showToast(`⚠️ ${errorMsg}`);
       }
     } catch (err) {
-      console.error('[Newsletter] Network or fetch error:', err);
+      console.error('[newsletter] Network or fetch failure:', err);
       showToast('⚠️ Network connection issue. Please verify your connection and retry.');
     } finally {
       if (submitBtn) {
@@ -700,6 +659,7 @@ function initNewsletterForm() {
   });
 }
 
+// --- Toast Notifications ---
 function showToast(message) {
   const container = document.getElementById('toastContainer');
   if (!container) return;
@@ -725,9 +685,7 @@ function showToast(message) {
   }, 3800);
 }
 
-/* ==========================================================================
-   9. INTERACTIVE MODALS & SYSTEM DIALOGS
-   ========================================================================== */
+// --- Dialog & Modal Controller ---
 function initModals() {
   const modalTriggers = document.querySelectorAll('[data-open-modal]');
   const modalCloseBtns = document.querySelectorAll('[data-close-modal]');
@@ -740,7 +698,6 @@ function initModals() {
       const targetModal = document.getElementById(modalId);
       if (!targetModal) return;
 
-      // Pre-select plan if tier was specified
       const tier = btn.getAttribute('data-tier');
       if (tier && modalId === 'venueModal') {
         const planChips = targetModal.querySelectorAll('.plan-chip-btn');
@@ -784,7 +741,6 @@ function initModals() {
     document.body.style.overflow = '';
   }
 
-  // Plan chip clicks inside venue modal
   document.querySelectorAll('.plan-chip-btn').forEach(chip => {
     chip.addEventListener('click', () => {
       document.querySelectorAll('.plan-chip-btn').forEach(c => c.classList.remove('active'));
@@ -796,7 +752,6 @@ function initModals() {
     });
   });
 
-  // Venue onboarding form submission (Checkout & Plan Lead)
   const venueForm = document.getElementById('venueOnboardingForm');
   if (venueForm) {
     const submitBtn = venueForm.querySelector('button[type="submit"]');
@@ -815,7 +770,6 @@ function initModals() {
       const tables = tablesSelect ? tablesSelect.value : '11-25 Tables';
       const cuisine = cuisineSelect ? cuisineSelect.value : 'general';
 
-      // Validation
       if (!venueName) {
         showToast('⚠️ Please enter your venue / restaurant name.');
         nameInput?.focus();
@@ -829,7 +783,6 @@ function initModals() {
         return;
       }
 
-      // Loading state
       if (submitBtn) {
         submitBtn.classList.add('loading');
         submitBtn.disabled = true;
@@ -859,7 +812,7 @@ function initModals() {
           showToast(`⚠️ ${errorMsg}`);
         }
       } catch (err) {
-        console.error('[Checkout] Network or fetch error:', err);
+        console.error('[checkout] Network or fetch failure:', err);
         showToast('⚠️ Network connection issue. Please verify your connection and retry.');
       } finally {
         if (submitBtn) {
@@ -871,11 +824,8 @@ function initModals() {
   }
 }
 
-/* ==========================================================================
-   10. SMART IN-PAGE NAVIGATION & DEAD LINK INTERCEPTION
-   ========================================================================== */
+// --- Deep Linking & Interception ---
 function initSmartLinks() {
-  // Smart links that scroll to sections and optionally trigger tabs or inputs
   document.querySelectorAll('.smart-link').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
@@ -889,7 +839,6 @@ function initSmartLinks() {
           e.preventDefault();
           targetEl.scrollIntoView({ behavior: 'smooth' });
 
-          // If a specific ecosystem tab is targeted (e.g. restaurantTab)
           if (tabTarget) {
             const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabTarget}"]`);
             if (tabBtn) {
@@ -897,7 +846,6 @@ function initSmartLinks() {
             }
           }
 
-          // If dietary filter action
           if (action === 'dietary') {
             setTimeout(() => {
               const veganChip = document.querySelector('#dietaryFilterGroup .filter-chip[data-val="vegan"]');
@@ -908,7 +856,6 @@ function initSmartLinks() {
             }, 500);
           }
 
-          // If tip calculator action
           if (action === 'tip-calc') {
             setTimeout(() => {
               const tipInput = document.getElementById('orderSubtotalInput');
@@ -921,7 +868,6 @@ function initSmartLinks() {
             }, 500);
           }
 
-          // If specific screen was targeted
           if (screenNum) {
             showToast(`Navigated to System Screen #${screenNum}`);
           }
@@ -930,7 +876,6 @@ function initSmartLinks() {
     });
   });
 
-  // Hero phone mockup dish add button
   const phoneDishBtn = document.getElementById('phoneAddDishBtn');
   if (phoneDishBtn) {
     phoneDishBtn.addEventListener('click', () => {
@@ -938,8 +883,7 @@ function initSmartLinks() {
     });
   }
 
-  // GLOBAL DEAD LINK AUDIT & INTERCEPTION
-  // Catch any remaining anchor tag with href="#" or non-existent hash targets
+  // Gracefully catch preview hash anchors
   document.querySelectorAll('a').forEach(anchor => {
     const href = anchor.getAttribute('href');
     if (!href || href === '#' || href === '#!') {
@@ -948,7 +892,6 @@ function initSmartLinks() {
         showToast('ℹ️ This feature is currently in closed preview. Coming soon!');
       });
     } else if (href.startsWith('#') && href.length > 1) {
-      // If the target element does not exist in DOM
       const targetId = href.substring(1);
       if (!document.getElementById(targetId)) {
         anchor.addEventListener('click', (e) => {
@@ -960,36 +903,29 @@ function initSmartLinks() {
   });
 }
 
-/* ==========================================================================
-   11. ANTI-SCRAPING OBFUSCATED EMAIL ENGINE & BOT-PROOF DEFENSE
-   ========================================================================== */
+// --- Anti-Scraping Obfuscated Email Engine & Bot Trap ---
 const ObfuscatedEmailEngine = (() => {
-  // Layer 1: Cryptographic decode mechanism (Base64 + Reverse + ROT13)
   function rot13(str) {
     return str.replace(/[a-zA-Z]/g, (c) => {
       return String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
     });
   }
 
+  // 3-step cipher (b64 -> reverse -> rot13) decodes in-memory to prevent static scraper harvesting
   function decode(encodedPayload) {
     if (!encodedPayload || typeof encodedPayload !== 'string') return '';
     try {
-      // Decode Base64 -> Reverse -> ROT13
       const b64Decoded = atob(encodedPayload);
       const reversed = b64Decoded.split('').reverse().join('');
       return rot13(reversed);
     } catch (e) {
-      console.warn('[AntiScrape] Payload decoding failure:', e.message);
+      console.warn('[anti-scrape] Decode failed:', e.message);
       return '';
     }
   }
 
-  // Layer 3: Bot verification heuristic (checks event trust and synthetic behavior)
   function isHumanEvent(e) {
-    if (!e) return false;
-    // Disallow synthetic automated events where isTrusted is false
-    if (e.isTrusted === false) return false;
-    // Check if session was flagged by bot honeypot
+    if (!e || e.isTrusted === false) return false;
     try {
       if (sessionStorage.getItem('menuhub_bot_trapped') === '1') {
         return false;
@@ -998,14 +934,14 @@ const ObfuscatedEmailEngine = (() => {
     return true;
   }
 
-  // Dynamic clipboard copy with fallback
+  // Fallback for non-HTTPS dev or restricted clipboard permission contexts
   async function copyToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
       try {
         await navigator.clipboard.writeText(text);
         return true;
       } catch (err) {
-        // fallback
+        // fallback to textarea select
       }
     }
     try {
@@ -1025,7 +961,7 @@ const ObfuscatedEmailEngine = (() => {
   }
 
   function init() {
-    // 1. Initialize Anti-Bot Honeypot Traps
+    // Honeypot traps for headless crawlers
     document.querySelectorAll('.anti-bot-honeypot').forEach((trap) => {
       trap.addEventListener('click', (e) => {
         e.preventDefault();
@@ -1033,17 +969,16 @@ const ObfuscatedEmailEngine = (() => {
         try {
           sessionStorage.setItem('menuhub_bot_trapped', '1');
         } catch (_) {}
-        console.warn('[Security] Automated scraper bot trapped by honeypot.');
+        console.warn('[security] Bot triggered honeypot trap.');
       });
     });
 
-    // 2. Initialize "Get in Touch" Obfuscated Email Button
+    // Contact button reveal & trigger
     const contactBtn = document.getElementById('contactEmailBtn');
     const contactBtnText = document.getElementById('contactBtnText');
     if (contactBtn) {
       const enc = contactBtn.getAttribute('data-enc');
 
-      // Intent event: Click
       contactBtn.addEventListener('click', (e) => {
         if (!isHumanEvent(e)) {
           e.preventDefault();
@@ -1053,7 +988,6 @@ const ObfuscatedEmailEngine = (() => {
         const email = decode(enc);
         if (!email) return;
 
-        // Reveal decoded email visually
         contactBtn.classList.add('revealed');
         contactBtn.setAttribute('title', `Send email to ${email}`);
         contactBtn.setAttribute('aria-label', `Send email to ${email}`);
@@ -1061,16 +995,14 @@ const ObfuscatedEmailEngine = (() => {
           contactBtnText.innerHTML = `<span class="contact-action-label">Email:</span> <strong style="color:#ffffff; font-weight:700;">${email}</strong>`;
         }
 
-        // Dynamically invoke mail client
         window.location.href = `mailto:${email}`;
       });
 
-      // Hover intent pre-warm (without exposing plaintext in DOM before click)
+      // Warm cache on deliberate mouse hover (>150ms)
       let hoverTimer = null;
       contactBtn.addEventListener('mouseenter', (e) => {
         if (!isHumanEvent(e)) return;
         hoverTimer = setTimeout(() => {
-          // Pre-warm decoded string in memory cache
           decode(enc);
         }, 150);
       });
@@ -1079,7 +1011,7 @@ const ObfuscatedEmailEngine = (() => {
       });
     }
 
-    // 3. Initialize "Copy Email" Quick-Action Button
+    // Quick-copy button
     const copyBtn = document.getElementById('copyEmailBtn');
     const copyLabel = document.getElementById('copyBtnLabel');
     if (copyBtn) {
@@ -1094,7 +1026,7 @@ const ObfuscatedEmailEngine = (() => {
         const email = decode(enc);
         if (!email) return;
 
-        const success = await copyToClipboard(email);
+        await copyToClipboard(email);
 
         copyBtn.classList.add('copied');
         if (copyLabel) copyLabel.textContent = 'Copied to clipboard!';
@@ -1107,7 +1039,7 @@ const ObfuscatedEmailEngine = (() => {
       });
     }
 
-    // 4. Initialize Footer Direct Inquiries Button
+    // Footer direct inquiry trigger
     const footerBtn = document.getElementById('footerContactBtn');
     if (footerBtn) {
       const enc = footerBtn.getAttribute('data-enc');
@@ -1126,5 +1058,3 @@ const ObfuscatedEmailEngine = (() => {
 
   return { init, decode };
 })();
-
-

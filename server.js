@@ -1,6 +1,8 @@
 /**
- * MENUVERSE / SMARTDINE - FULL-STACK BACKEND SERVER
- * Serves landing page showcase and processes API endpoints with live notifications
+ * MenuHub Landing Page & Lead Capture Server
+ *
+ * @author Sadra Babai
+ * @maintainer Sadra Babai
  */
 
 require('dotenv').config({ path: '.env.local' });
@@ -16,23 +18,17 @@ const mailer = require('./lib/mailer');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Serve static assets from project root
 app.use(express.static(path.join(__dirname)));
 
-/**
- * 1. POST /api/newsletter
- * Capture newsletter/waitlist email, persist, and alert admin
- */
+// POST /api/newsletter
+// TODO: hook up rate-limiting middleware if bot submissions spike
 app.post('/api/newsletter', async (req, res) => {
   try {
     const { email } = req.body;
 
-    // Validation
     if (!email || typeof email !== 'string') {
       return res.status(400).json({ success: false, error: 'Email is required.' });
     }
@@ -48,10 +44,9 @@ app.post('/api/newsletter', async (req, res) => {
       source: 'footer_newsletter'
     };
 
-    // 1. Persist to storage
     const { subscriber, isNew } = storage.saveNewsletterSubscriber(email, metadata);
 
-    // 2. Dispatch alert email to admin
+    // Non-blocking notification dispatch
     try {
       await mailer.sendAdminNewsletterNotification({
         email: subscriber.email,
@@ -60,8 +55,7 @@ app.post('/api/newsletter', async (req, res) => {
         userAgent: metadata.userAgent
       });
     } catch (mailErr) {
-      console.error('[API:Newsletter] Warning: Admin notification dispatch failed:', mailErr.message);
-      // We still succeed because email is safely persisted in the database
+      console.warn('[api/newsletter] Notification dispatch failed:', mailErr.message);
     }
 
     return res.status(200).json({
@@ -70,20 +64,16 @@ app.post('/api/newsletter', async (req, res) => {
       subscriber: { email: subscriber.email }
     });
   } catch (err) {
-    console.error('[API:Newsletter] Server error:', err);
+    console.error('[api/newsletter] Handler error:', err);
     return res.status(500).json({ success: false, error: 'Server error processing subscription. Please try again.' });
   }
 });
 
-/**
- * 2. POST /api/checkout
- * Capture plan purchase & venue onboarding lead, persist, and alert admin immediately
- */
+// POST /api/checkout
 app.post('/api/checkout', async (req, res) => {
   try {
     const { venueName, email, plan, tables, cuisine } = req.body;
 
-    // Validation
     if (!email || typeof email !== 'string') {
       return res.status(400).json({ success: false, error: 'Business email is required.' });
     }
@@ -111,10 +101,9 @@ app.post('/api/checkout', async (req, res) => {
       }
     };
 
-    // 1. Persist to storage
     const savedLead = storage.saveOrderLead(leadData);
 
-    // 2. Dispatch alert email directly to admin
+    // Lead is committed to disk; notification failures shouldn't block client response
     try {
       await mailer.sendAdminOrderNotification({
         leadId: savedLead.id,
@@ -127,8 +116,7 @@ app.post('/api/checkout', async (req, res) => {
         timestamp: savedLead.createdAt
       });
     } catch (mailErr) {
-      console.error('[API:Checkout] Warning: Admin notification dispatch failed:', mailErr.message);
-      // Lead is still safely preserved in database
+      console.warn('[api/checkout] Notification dispatch failed:', mailErr.message);
     }
 
     return res.status(200).json({
@@ -141,15 +129,12 @@ app.post('/api/checkout', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error('[API:Checkout] Server error:', err);
+    console.error('[api/checkout] Handler error:', err);
     return res.status(500).json({ success: false, error: 'Server error processing checkout. Please try again.' });
   }
 });
 
-/**
- * 3. GET /api/health
- * System diagnostic endpoint for database and mailer status
- */
+// GET /api/health - telemetry & probe status
 app.get('/api/health', (req, res) => {
   const data = storage.getSubmissions();
   res.status(200).json({
@@ -169,21 +154,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Fallback: serve index.html for root or SPA paths
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Start listening
 app.listen(PORT, () => {
-  console.log(`====================================================`);
-  console.log(`🚀 MenuHub Full-Stack Server listening on http://localhost:${PORT}`);
-  console.log(`📡 Endpoints:`);
-  console.log(`   - POST /api/newsletter (Newsletter / waitlist capture)`);
-  console.log(`   - POST /api/checkout   (Plan purchase / onboarding capture)`);
-  console.log(`   - GET  /api/health     (Telemetry & stored leads status)`);
-  console.log(`📁 Database storage active at data/submissions.json`);
-  console.log(`====================================================`);
+  console.log(`MenuHub dev server listening on http://localhost:${PORT}`);
 });
 
 module.exports = app;

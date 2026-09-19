@@ -1,13 +1,14 @@
 /**
- * Serverless Function: POST /api/checkout
- * Compatible with Vercel, Netlify, and Cloud Functions
+ * Serverless handler: POST /api/checkout
+ *
+ * @author Sadra Babai
+ * @maintainer Sadra Babai
  */
 
 const storage = require('../lib/storage');
 const mailer = require('../lib/mailer');
 
 module.exports = async function handler(req, res) {
-  // CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -65,7 +66,7 @@ module.exports = async function handler(req, res) {
         timestamp: savedLead.createdAt
       });
     } catch (err) {
-      console.error('[Serverless:Checkout] Mailer error:', err.message);
+      console.warn('[serverless:checkout] Notification failed:', err.message);
     }
 
     return res.status(200).json({
@@ -78,7 +79,7 @@ module.exports = async function handler(req, res) {
       }
     });
   } catch (err) {
-    console.error('[Serverless:Checkout] Error:', err);
+    console.error('[serverless:checkout] Handler error:', err);
     return res.status(500).json({ success: false, error: 'Internal server error.' });
   }
 };
