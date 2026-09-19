@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNewsletterForm();
   initModals();
   initSmartLinks();
-  initCopyEmail();
+  ObfuscatedEmailEngine.init();
 });
 
 /* ==========================================================================
@@ -961,49 +961,170 @@ function initSmartLinks() {
 }
 
 /* ==========================================================================
-   11. COPY EMAIL QUICK-ACTION
+   11. ANTI-SCRAPING OBFUSCATED EMAIL ENGINE & BOT-PROOF DEFENSE
    ========================================================================== */
-function initCopyEmail() {
-  const copyBtn = document.getElementById('copyEmailBtn');
-  const copyLabel = document.getElementById('copyBtnLabel');
-  if (!copyBtn) return;
+const ObfuscatedEmailEngine = (() => {
+  // Layer 1: Cryptographic decode mechanism (Base64 + Reverse + ROT13)
+  function rot13(str) {
+    return str.replace(/[a-zA-Z]/g, (c) => {
+      return String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
+    });
+  }
 
-  copyBtn.addEventListener('click', async () => {
-    const email = copyBtn.getAttribute('data-email') || 'info@menuhub.app';
-    let copied = false;
+  function decode(encodedPayload) {
+    if (!encodedPayload || typeof encodedPayload !== 'string') return '';
+    try {
+      // Decode Base64 -> Reverse -> ROT13
+      const b64Decoded = atob(encodedPayload);
+      const reversed = b64Decoded.split('').reverse().join('');
+      return rot13(reversed);
+    } catch (e) {
+      console.warn('[AntiScrape] Payload decoding failure:', e.message);
+      return '';
+    }
+  }
 
+  // Layer 3: Bot verification heuristic (checks event trust and synthetic behavior)
+  function isHumanEvent(e) {
+    if (!e) return false;
+    // Disallow synthetic automated events where isTrusted is false
+    if (e.isTrusted === false) return false;
+    // Check if session was flagged by bot honeypot
+    try {
+      if (sessionStorage.getItem('menuhub_bot_trapped') === '1') {
+        return false;
+      }
+    } catch (_) {}
+    return true;
+  }
+
+  // Dynamic clipboard copy with fallback
+  async function copyToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
       try {
-        await navigator.clipboard.writeText(email);
-        copied = true;
+        await navigator.clipboard.writeText(text);
+        return true;
       } catch (err) {
-        copied = false;
+        // fallback
       }
     }
-
-    if (!copied) {
-      const tempInput = document.createElement('input');
-      tempInput.value = email;
+    try {
+      const tempInput = document.createElement('textarea');
+      tempInput.value = text;
+      tempInput.setAttribute('readonly', '');
+      tempInput.style.position = 'absolute';
+      tempInput.style.left = '-9999px';
       document.body.appendChild(tempInput);
       tempInput.select();
-      try {
-        document.execCommand('copy');
-        copied = true;
-      } catch (err) {
-        copied = false;
-      }
+      const success = document.execCommand('copy');
       document.body.removeChild(tempInput);
+      return success;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function init() {
+    // 1. Initialize Anti-Bot Honeypot Traps
+    document.querySelectorAll('.anti-bot-honeypot').forEach((trap) => {
+      trap.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        try {
+          sessionStorage.setItem('menuhub_bot_trapped', '1');
+        } catch (_) {}
+        console.warn('[Security] Automated scraper bot trapped by honeypot.');
+      });
+    });
+
+    // 2. Initialize "Get in Touch" Obfuscated Email Button
+    const contactBtn = document.getElementById('contactEmailBtn');
+    const contactBtnText = document.getElementById('contactBtnText');
+    if (contactBtn) {
+      const enc = contactBtn.getAttribute('data-enc');
+
+      // Intent event: Click
+      contactBtn.addEventListener('click', (e) => {
+        if (!isHumanEvent(e)) {
+          e.preventDefault();
+          return;
+        }
+
+        const email = decode(enc);
+        if (!email) return;
+
+        // Reveal decoded email visually
+        contactBtn.classList.add('revealed');
+        contactBtn.setAttribute('title', `Send email to ${email}`);
+        contactBtn.setAttribute('aria-label', `Send email to ${email}`);
+        if (contactBtnText) {
+          contactBtnText.innerHTML = `<span class="contact-action-label">Email:</span> <strong style="color:#ffffff; font-weight:700;">${email}</strong>`;
+        }
+
+        // Dynamically invoke mail client
+        window.location.href = `mailto:${email}`;
+      });
+
+      // Hover intent pre-warm (without exposing plaintext in DOM before click)
+      let hoverTimer = null;
+      contactBtn.addEventListener('mouseenter', (e) => {
+        if (!isHumanEvent(e)) return;
+        hoverTimer = setTimeout(() => {
+          // Pre-warm decoded string in memory cache
+          decode(enc);
+        }, 150);
+      });
+      contactBtn.addEventListener('mouseleave', () => {
+        if (hoverTimer) clearTimeout(hoverTimer);
+      });
     }
 
-    copyBtn.classList.add('copied');
-    if (copyLabel) copyLabel.textContent = 'Copied to clipboard!';
-    showToast('📋 Copied info@menuhub.app to clipboard!');
+    // 3. Initialize "Copy Email" Quick-Action Button
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const copyLabel = document.getElementById('copyBtnLabel');
+    if (copyBtn) {
+      const enc = copyBtn.getAttribute('data-enc');
 
-    setTimeout(() => {
-      copyBtn.classList.remove('copied');
-      if (copyLabel) copyLabel.textContent = 'Copy Email';
-    }, 2800);
-  });
-}
+      copyBtn.addEventListener('click', async (e) => {
+        if (!isHumanEvent(e)) {
+          e.preventDefault();
+          return;
+        }
+
+        const email = decode(enc);
+        if (!email) return;
+
+        const success = await copyToClipboard(email);
+
+        copyBtn.classList.add('copied');
+        if (copyLabel) copyLabel.textContent = 'Copied to clipboard!';
+        showToast(`📋 Copied ${email} to clipboard!`);
+
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          if (copyLabel) copyLabel.textContent = 'Copy Email';
+        }, 2800);
+      });
+    }
+
+    // 4. Initialize Footer Direct Inquiries Button
+    const footerBtn = document.getElementById('footerContactBtn');
+    if (footerBtn) {
+      const enc = footerBtn.getAttribute('data-enc');
+      footerBtn.addEventListener('click', (e) => {
+        if (!isHumanEvent(e)) {
+          e.preventDefault();
+          return;
+        }
+        const email = decode(enc);
+        if (!email) return;
+        window.location.href = `mailto:${email}`;
+        showToast(`📬 Launching mail client for ${email}`);
+      });
+    }
+  }
+
+  return { init, decode };
+})();
 
 

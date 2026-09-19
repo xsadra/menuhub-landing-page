@@ -164,7 +164,7 @@ app.get('/api/health', (req, res) => {
     config: {
       hasResendApiKey: Boolean(process.env.RESEND_API_KEY),
       hasSmtpConfig: Boolean(process.env.SMTP_HOST && process.env.SMTP_USER),
-      adminEmail: process.env.ADMIN_EMAIL || 'info@menuhub.app'
+      adminContactConfigured: Boolean(process.env.ADMIN_EMAIL)
     }
   });
 });

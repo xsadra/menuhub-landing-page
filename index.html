@@ -1492,15 +1492,22 @@
           <div class="creator-contact-subtext">
             Interested in the architecture, technical collaborations, or venue deployments?
           </div>
+
+          <!-- Layer 4: Anti-Bot Honeypot Trap (flags automated crawlers scanning for mailto links) -->
+          <a href="mailto:security-trap@menuhub.app" class="anti-bot-honeypot" rel="nofollow" tabindex="-1" aria-hidden="true">Contact Webmaster (Bot Trap)</a>
+
           <div class="creator-actions-row">
-            <a href="mailto:info@menuhub.app" class="btn-email-cta">
+            <button type="button" class="btn-email-cta obfuscated-email-btn" id="contactEmailBtn" data-enc="Y2NuLm9odWhhcnpAYnNhdg==" aria-label="Get in touch via email">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
-              Get in Touch: info@menuhub.app
-            </a>
-            <button class="btn-copy-email" id="copyEmailBtn" aria-label="Copy email address to clipboard" data-email="info@menuhub.app">
+              <span class="btn-email-text" id="contactBtnText">
+                <span class="contact-action-label">Get in Touch:</span>
+                <span class="obfuscated-email-visual" aria-hidden="true">ppa.buhenem<span class="obfuscated-decoy">x-bot-trap</span>&#64;<span class="obfuscated-decoy">anti-scraper</span>ofni</span>
+              </span>
+            </button>
+            <button type="button" class="btn-copy-email" id="copyEmailBtn" aria-label="Copy contact email to clipboard" data-enc="Y2NuLm9odWhhcnpAYnNhdg==">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -1599,6 +1606,7 @@
         <div style="display:flex; gap:20px; align-items:center;">
           <button class="footer-text-btn" data-open-modal="policyModal">Privacy Policy</button>
           <button class="footer-text-btn" data-open-modal="statusModal"><span class="ticker-dot" style="display:inline-block; margin-right:4px;"></span> System Status: 99.98%</button>
+          <button class="footer-text-btn obfuscated-footer-contact" id="footerContactBtn" data-enc="Y2NuLm9odWhhcnpAYnNhdg==" aria-label="Direct Inquiries">Direct Inquiries</button>
           <a href="#screens" class="smart-link" data-scroll="screens">Architecture Manifest</a>
         </div>
       </div>

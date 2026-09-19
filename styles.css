@@ -2043,18 +2043,65 @@ input[type="range"] {
   color: #ffffff;
   padding: 13px 26px;
   border-radius: var(--radius-md);
+  border: none;
+  outline: none;
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 600;
   box-shadow: 0 4px 20px rgba(255, 107, 53, 0.35);
   transition: all var(--transition-fast);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .btn-email-cta:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 26px rgba(255, 107, 53, 0.5);
   color: #ffffff;
+}
+
+.btn-email-cta.revealed {
+  background: linear-gradient(135deg, #FF6B35 0%, #E65100 100%);
+  box-shadow: 0 6px 24px rgba(255, 107, 53, 0.45);
+}
+
+.btn-email-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Layer 2: Visual Obfuscation & RTL Bidi-Override */
+.obfuscated-email-visual {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  user-select: none;
+  letter-spacing: 0.2px;
+}
+
+/* Decoy tags embedded inside markup to break naive regex / text scrapers */
+.obfuscated-decoy {
+  display: none !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  speak: never !important;
+}
+
+/* Layer 4: Anti-Bot Honeypot Trap (invisible to humans, tempting for blind scrapers) */
+.anti-bot-honeypot {
+  position: absolute !important;
+  left: -99999px !important;
+  top: -99999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -999 !important;
 }
 
 .btn-copy-email {
